@@ -1,3 +1,40 @@
 ﻿{
-
+  "Season 1" : [
+    {
+      "name": "Und es hat BOOM gemacht!",
+      "track": "San Marino",
+      "items": [
+        {
+          "racer": "Podo",
+          "position": 1,
+          "points": 11
+        },
+        {
+          "racer": "Rafi",
+          "position": 2,
+          "points": 7
+        },
+        {
+          "racer": "Markus",
+          "position": 3,
+          "points": 4
+        },
+        {
+          "racer": "Igor",
+          "position": 0,
+          "points": 0
+        },
+        {
+          "racer": "Thomas",
+          "position": 0,
+          "points": 0
+        },
+        {
+          "racer": "Georg",
+          "position": 0,
+          "points": 0
+        }
+      ]
+    }
+  ]
 }
