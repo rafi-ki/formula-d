@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div v-if="!!result">
     <div class="text-h4"> {{ result.name }}</div>
     <div class="text-subtitle-1"> {{ result.track }}</div>

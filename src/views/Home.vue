@@ -3,7 +3,6 @@
     <div class="container">
       <race-result></race-result>
     </div>
-
   </div>
 </template>
 
