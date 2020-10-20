@@ -35,7 +35,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { RaceResultDto } from "@/types/Season";
-import data from '@/data/formulad.json';
+import data from "@/data/formulad.json";
 
 @Component({
   components: {
@@ -44,7 +44,7 @@ import data from '@/data/formulad.json';
 export default class RaceResult extends Vue {
 
   // @Prop()
-  result: RaceResultDto | undefined = null
+  result: RaceResultDto | null = null
 
   mounted() {
     this.result = data["Season 1"][0];
