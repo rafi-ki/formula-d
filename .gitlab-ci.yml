@@ -1,4 +1,4 @@
-﻿image: rambabusaravanan/firebase
+image: rambabusaravanan/firebase
 
 stages:
   - deploy
