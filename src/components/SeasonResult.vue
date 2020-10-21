@@ -3,11 +3,12 @@
       class="mx-auto transition-swing rounded-lg"
       elevation="4"
       width="100%"
+      max-width="50em"
       color="green lighten-3"
   >
     <div class="container" v-if="!!season">
-      <div class="text-h4"> {{ season.name }} - Rennen x/{{season.plannedRaces}}</div>
-      <div class="text-subtitle-1">März 2020 - Oktober 2020</div>
+      <div class="text-h5"> {{ season.name }} - Rennen {{amountRaces}}/{{season.plannedRaces}}</div>
+      <div class="text-subtitle-1">{{ season.start }} - {{ season.end }}</div>
       <result-table-comp :items="items"></result-table-comp>
     </div>
   </v-sheet>
@@ -33,25 +34,13 @@ export default class SeasonResult extends Vue {
   get items(): RaceResultItemDto[] {
     if (!this.season)
       return null;
-    const seasonItems = this.season.races.flatMap(x => x.items);
-    const groupedByName = seasonItems.reduce((r, a) => {
-      r[a.racer] = [...r[a.racer] || [], a.points];
-      return r;
-    }, {});
-    const pointsByRacer = Object.keys(groupedByName).map(x => {
-      const points = groupedByName[x].reduce((r, a) => { return r+a; });
-      return {
-        racer: x,
-        points: points
-      }
-    });
-    return pointsByRacer.sort((a, b) => b.points - a.points).map((x, index) => {
-      return {
-        racer: x.racer,
-        points: x.points,
-        position: index+1
-      }
-    });
+    return this.$store.getters.getComulated(this.season.id);
+  }
+
+  get amountRaces(): number {
+    if (!this.season)
+      return 0;
+    return this.season.races.length;
   }
 }
 </script>

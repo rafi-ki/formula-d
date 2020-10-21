@@ -8,12 +8,12 @@
     <v-list-item three-line>
       <v-list-item-content>
         <div class="overline mb-4">
-          Podest: 1. Rafi | 2. Markus | 3. Podo
+          Podest: 1. {{ commulated[0].racer }} | 2. {{ commulated[1].racer }} | 3. {{ commulated[2].racer }}
         </div>
         <v-list-item-title class="headline mb-1">
           {{  season.name }}
         </v-list-item-title>
-        <v-list-item-subtitle>März 2020 - Oktober 2020</v-list-item-subtitle>
+        <v-list-item-subtitle>{{ season.start }} - {{ season.end }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
   </v-card>
@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { SeasonDto } from "@/types/Season";
+import { RaceResultItemDto, SeasonDto } from "@/types/Season";
 
 @Component({
   components: {
@@ -35,6 +35,10 @@ export default class SeasonCard extends Vue {
   move() {
     const path = 'season/' + this.season.id;
     this.$router.push({ path })
+  }
+
+  get commulated(): RaceResultItemDto[] {
+    return this.$store.getters.getComulated(this.season.id);
   }
 }
 </script>

@@ -3,9 +3,10 @@
       class="mx-auto transition-swing rounded-lg"
       elevation="4"
       width="100%"
+      max-width="50em"
   >
   <div class="container mt-2" v-if="!!result">
-    <div class="text-h4"> {{ result.name }}</div>
+    <div class="text-h5"> {{ result.name }}</div>
     <div class="text-subtitle-1"> {{ result.track }}</div>
     <result-table-comp :items="result.items"></result-table-comp>
   </div>

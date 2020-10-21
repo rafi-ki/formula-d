@@ -1,10 +1,9 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        Formula D
-      </div>
-      <v-spacer></v-spacer>
+      <v-btn text @click="toHome">
+        <v-icon>mdi-home</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -27,6 +26,10 @@ export default class App extends Vue {
       const seasons = snapshot.val() as SeasonDto[];
       this.$store.commit("SetSeasons", seasons);
     });
+  }
+
+  toHome() {
+    this.$router.push("/");
   }
 }
 </script>
