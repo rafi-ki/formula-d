@@ -33,7 +33,7 @@ export default class SeasonResult extends Vue {
 
   get items(): RaceResultItemDto[] {
     if (!this.season)
-      return null;
+      return [];
     return this.$store.getters.getComulated(this.season.id);
   }
 

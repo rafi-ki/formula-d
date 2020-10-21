@@ -32,7 +32,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { RaceResultItemDto } from "@/types/Season";
 
-@Component()
+@Component
 export default class ResultTableComp extends Vue {
   @Prop()
   items!: RaceResultItemDto[];

@@ -27,7 +27,7 @@ export default class Season extends Vue {
   get races(): RaceDto[] {
     if (this.season)
       return this.season.races;
-    return null;
+    return [];
   }
 
 }

@@ -18,7 +18,7 @@ import { Component } from "vue-property-decorator";
 import * as firebase from "firebase";
 import { SeasonDto } from "@/types/Season";
 
-@Component()
+@Component
 export default class App extends Vue {
   mounted() {
     const seasonsRef = firebase.database().ref("seasons");
