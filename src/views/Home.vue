@@ -3,8 +3,6 @@
     <div class="container">
       <season-card v-for="season in seasons" :key="season.name" :season="season">
       </season-card>
-      <race-result :result="firstResult"></race-result>
-      <race-result :result="secondResult"></race-result>
     </div>
   </div>
 </template>
@@ -37,12 +35,6 @@ export default class Home extends Vue {
     return this.$store.state.seasons;
   }
 
-  get firstResult(): RaceDto {
-    return this.$store.state.seasons[0]?.races[0];
-  }
 
-  get secondResult(): RaceDto {
-    return this.$store.state.seasons[0]?.races[1];
-  }
 }
 </script>

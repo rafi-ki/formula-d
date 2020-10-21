@@ -3,11 +3,12 @@
       class="mx-auto"
       max-width="344"
       outlined
+          @click="move"
   >
     <v-list-item three-line>
       <v-list-item-content>
         <div class="overline mb-4">
-          Podest: 1. Podo | 2. Markus | 3. Rafi
+          Podest: 1. Rafi | 2. Markus | 3. Podo
         </div>
         <v-list-item-title class="headline mb-1">
           {{  season.name }}
@@ -31,6 +32,9 @@ export default class SeasonCard extends Vue {
   @Prop()
   season!: SeasonDto;
 
+  move() {
+    this.$router.push({ path: 'season' })
+  }
 }
 </script>
 
