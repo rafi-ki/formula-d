@@ -1,4 +1,9 @@
-﻿export interface RaceResultDto {
+﻿export interface SeasonDto {
+    name: string,
+    races: RaceDto[]
+}
+
+export interface RaceDto {
     name: string,
     track: string,
     items: RaceResultItemDto[]
