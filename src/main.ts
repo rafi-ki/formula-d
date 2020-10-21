@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
 import "firebase/database";
 
 Vue.config.productionTip = false;

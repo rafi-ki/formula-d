@@ -15,7 +15,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-// import HelloWorld from "./components/HelloWorld.vue";
 import Home from "@/views/Home.vue";
 
 export default Vue.extend({
@@ -23,7 +22,6 @@ export default Vue.extend({
 
   components: {
     Home,
-    // HelloWorld
   },
 
   data: () => ({
