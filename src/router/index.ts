@@ -12,7 +12,7 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: "/season",
+    path: "/season/:id",
     name: "Season",
     component: Season
   },

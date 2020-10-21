@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { SeasonDto } from "@/types/Season";
 
 Vue.use(Vuex);
 

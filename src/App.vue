@@ -15,15 +15,18 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import * as firebase from "firebase";
+import { SeasonDto } from "@/types/Season";
 
-export default Vue.extend({
-  name: "App",
-
-  components: {
-  },
-
-  data: () => ({
-    //
-  })
-});
+@Component()
+export default class App extends Vue {
+  mounted() {
+    const seasonsRef = firebase.database().ref("seasons");
+    seasonsRef.on("value", snapshot => {
+      const seasons = snapshot.val() as SeasonDto[];
+      this.$store.commit("SetSeasons", seasons);
+    });
+  }
+}
 </script>

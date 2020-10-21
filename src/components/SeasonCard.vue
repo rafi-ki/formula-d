@@ -3,7 +3,7 @@
       class="mx-auto"
       max-width="344"
       outlined
-          @click="move"
+      @click="move"
   >
     <v-list-item three-line>
       <v-list-item-content>
@@ -33,7 +33,8 @@ export default class SeasonCard extends Vue {
   season!: SeasonDto;
 
   move() {
-    this.$router.push({ path: 'season' })
+    const path = 'season/' + this.season.id;
+    this.$router.push({ path })
   }
 }
 </script>

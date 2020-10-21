@@ -9,27 +9,19 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import RaceResult from "@/components/RaceResult.vue";
 import * as firebase from "firebase/app";
 import "firebase/database";
-import { RaceDto, SeasonDto } from "@/types/Season";
 import SeasonCard from "@/components/SeasonCard.vue";
+import { SeasonDto } from "@/types/Season";
 
 @Component({
   components: {
-    SeasonCard,
-    RaceResult
+    SeasonCard
   }
 })
 export default class Home extends Vue {
 
-  mounted() {
-    const seasonsRef = firebase.database().ref("seasons");
-    seasonsRef.on("value", snapshot => {
-      const seasons = snapshot.val() as SeasonDto[];
-      this.$store.commit("SetSeasons", seasons);
-    });
-  }
+
 
   get seasons(): SeasonDto[] {
     return this.$store.state.seasons;

@@ -1,28 +1,33 @@
 ﻿<template>
-  <div class="container">
-    <race-result :result="firstResult"></race-result>
-    <race-result :result="secondResult"></race-result>
+  <div class="container" v-if="!!races">
+    <season-result :season="season"></season-result>
+    <race-comp v-for="race in races" :key="race.order" :result="race"></race-comp>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
-import RaceResult from "@/components/RaceResult.vue";
-import { RaceDto } from "@/types/Season";
+import RaceComp from "@/components/RaceComp.vue";
+import { RaceDto, SeasonDto } from "@/types/Season";
+import SeasonResult from "@/components/SeasonResult.vue";
 
 @Component({
   components: {
-    RaceResult
+    SeasonResult,
+    RaceComp
   }
 })
 export default class Season extends Vue {
 
-  get firstResult(): RaceDto {
-    return this.$store.state.seasons[0]?.races[0];
+  get season(): SeasonDto {
+    const id = this.$route.params.id;
+    return this.$store.state.seasons.find((x: SeasonDto) => x.id == id);
   }
 
-  get secondResult(): RaceDto {
-    return this.$store.state.seasons[0]?.races[1];
+  get races(): RaceDto[] {
+    if (this.season)
+      return this.season.races;
+    return null;
   }
 
 }
