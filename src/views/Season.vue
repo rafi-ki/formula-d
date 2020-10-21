@@ -26,7 +26,7 @@ export default class Season extends Vue {
 
   get races(): RaceDto[] {
     if (this.season)
-      return this.season.races;
+      return this.season.races.sort((a, b) => b.order - a.order);
     return [];
   }
 
