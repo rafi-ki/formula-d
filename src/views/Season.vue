@@ -1,6 +1,7 @@
 ﻿<template>
   <v-container v-if="!!races">
     <season-result :season="season"></season-result>
+    <v-divider class="mt-5 mb-5"></v-divider>
     <race-comp v-for="race in races" :key="race.order" :result="race"></race-comp>
   </v-container>
 </template>

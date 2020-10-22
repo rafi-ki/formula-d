@@ -18,9 +18,10 @@
       <tr
           v-for="item in items"
           :key="item.racer"
+          :class="{'red lighten-2': item.position===0}"
       >
         <td>{{ item.position | position }}</td>
-        <td>{{ item.racer }}</td>
+        <td :class="{'text-decoration-line-through': item.position===0}">{{ item.racer }}</td>
         <td>{{ item.points }}</td>
       </tr>
       </tbody>
