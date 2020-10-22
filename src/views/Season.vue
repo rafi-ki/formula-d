@@ -2,7 +2,19 @@
   <v-container v-if="!!races">
     <season-result :season="season"></season-result>
     <v-divider class="mt-5 mb-5"></v-divider>
-    <race-comp v-for="race in races" :key="race.order" :result="race"></race-comp>
+    <v-expansion-panels>
+      <v-expansion-panel v-for="race in races" :key="race.order">
+        <v-expansion-panel-header>
+          <div class="text-h5">
+            <span class="mr-2">{{ race.order }}</span><span class="font-italic">"{{ race.name }}"</span>
+            <div class="text-subtitle-1"> {{ race.track }}</div>
+          </div>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <race-comp  :result="race"></race-comp>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-container>
 </template>
 
