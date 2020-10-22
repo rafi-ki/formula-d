@@ -8,6 +8,13 @@ import "firebase/database";
 
 Vue.config.productionTip = false;
 
+Vue.filter("position", function (value: number) {
+  if (value === 0) {
+    return "DNF";
+  }
+  return "" + value;
+});
+
 const firebaseConfig = {
   apiKey: "AIzaSyBSfeVkcrfyOoysm2giGrH87NYTj7HYSrI",
   authDomain: "formula-d-f86d2.firebaseapp.com",

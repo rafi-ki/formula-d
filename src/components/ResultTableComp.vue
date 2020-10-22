@@ -19,7 +19,7 @@
           v-for="item in items"
           :key="item.racer"
       >
-        <td>{{ item.position }}</td>
+        <td>{{ item.position | position }}</td>
         <td>{{ item.racer }}</td>
         <td>{{ item.points }}</td>
       </tr>
