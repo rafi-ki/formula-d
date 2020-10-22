@@ -5,13 +5,13 @@
       width="100%"
       max-width="50em"
   >
-  <div class="container mt-2" v-if="!!result">
-    <div class="text-h5">
-      <span class="mr-2">{{ result.order }}</span><span class="font-italic">"{{ result.name }}"</span>
-    </div>
-    <div class="text-subtitle-1"> {{ result.track }}</div>
-    <result-table-comp :items="result.items"></result-table-comp>
-  </div>
+    <v-container class="mt-2" v-if="!!result">
+      <div class="text-h5">
+        <span class="mr-2">{{ result.order }}</span><span class="font-italic">"{{ result.name }}"</span>
+      </div>
+      <div class="text-subtitle-1"> {{ result.track }}</div>
+      <result-table-comp :items="result.items"></result-table-comp>
+    </v-container>
   </v-sheet>
 </template>
 

@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <div class="container">
+    <v-container>
       <season-card v-for="season in seasons" :key="season.name" :season="season">
       </season-card>
-    </div>
+    </v-container>
   </div>
 </template>
 

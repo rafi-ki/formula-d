@@ -1,8 +1,8 @@
 ﻿<template>
-  <div class="container" v-if="!!races">
+  <v-container v-if="!!races">
     <season-result :season="season"></season-result>
     <race-comp v-for="race in races" :key="race.order" :result="race"></race-comp>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">

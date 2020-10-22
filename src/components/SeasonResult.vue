@@ -6,11 +6,11 @@
       max-width="50em"
       color="green lighten-3"
   >
-    <div class="container" v-if="!!season">
+    <v-container v-if="!!season">
       <div class="text-h5"> {{ season.name }} - Rennen {{amountRaces}}/{{season.plannedRaces}}</div>
       <div class="text-subtitle-1">{{ season.start }} - {{ season.end }}</div>
       <result-table-comp :items="items"></result-table-comp>
-    </div>
+    </v-container>
   </v-sheet>
 </template>
 
