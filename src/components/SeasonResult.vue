@@ -26,7 +26,7 @@ export default class SeasonResult extends Vue {
   season!: SeasonDto;
 
   get finished(): boolean {
-    if (!this.season)
+    if (!this.season?.races)
       return false;
     return this.season.races.length === this.season.plannedRaces;
   }
@@ -38,7 +38,7 @@ export default class SeasonResult extends Vue {
   }
 
   get amountRaces(): number {
-    if (!this.season)
+    if (!this.season?.races)
       return 0;
     return this.season.races.length;
   }

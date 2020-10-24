@@ -20,8 +20,8 @@ export default new Vuex.Store<ModuleState>({
   getters: {
     getComulated: (state) => (id: string) => {
       const season = state.seasons[id as any] as SeasonDto;
-      if (!season)
-        return null;
+      if (!season?.races)
+        return [];
       const seasonItems = season.races.flatMap(x => x.items);
       const groupedByName = seasonItems.reduce((r: any, a) => {
         r[a.racer] = [...r[a.racer] || [], a.points];
