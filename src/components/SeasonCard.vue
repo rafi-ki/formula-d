@@ -1,13 +1,13 @@
 ﻿<template>
   <v-card v-if="!!season"
-      class="mx-auto"
+      class="mx-auto mt-2"
       max-width="344"
       outlined
       @click="move"
   >
     <v-list-item three-line>
       <v-list-item-content>
-        <div class="overline mb-4">
+        <div v-if="commulated.length > 0" class="overline mb-4">
           Podest: 1. {{ commulated[0].racer }} | 2. {{ commulated[1].racer }} | 3. {{ commulated[2].racer }}
         </div>
         <v-list-item-title class="headline mb-1">

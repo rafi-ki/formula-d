@@ -6,7 +6,7 @@
       max-width="50em"
   >
     <v-container class="mt-2" v-if="!!result">
-      
+
       <result-table-comp :items="result.items"></result-table-comp>
     </v-container>
   </v-sheet>

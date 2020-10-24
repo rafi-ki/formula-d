@@ -19,7 +19,7 @@ export default new Vuex.Store<ModuleState>({
   },
   getters: {
     getComulated: (state) => (id: string) => {
-      const season = state.seasons.find((x: SeasonDto) => x.id === id);
+      const season = state.seasons[id as any] as SeasonDto;
       if (!season)
         return null;
       const seasonItems = season.races.flatMap(x => x.items);
