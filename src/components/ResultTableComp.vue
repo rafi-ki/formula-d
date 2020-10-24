@@ -39,7 +39,7 @@ export default class ResultTableComp extends Vue {
   items!: RaceResultItemDto[];
 
   @Prop()
-  qualifying: string[];
+  qualifying?: string[];
 
   qualifyingPosition(item: RaceResultItemDto): number {
     if (!this.qualifying)
