@@ -7,7 +7,7 @@
   >
     <v-container class="mt-2" v-if="!!result">
 
-      <result-table-comp :items="result.items"></result-table-comp>
+      <result-table-comp :items="result.items" :qualifying="result.qualifying"></result-table-comp>
     </v-container>
   </v-sheet>
 </template>

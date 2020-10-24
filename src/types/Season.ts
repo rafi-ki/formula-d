@@ -11,6 +11,7 @@ export interface RaceDto {
     name: string,
     track: string,
     order: number,
+    qualifying?: string[],
     items: RaceResultItemDto[]
 }
 
