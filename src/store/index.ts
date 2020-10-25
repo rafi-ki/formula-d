@@ -66,7 +66,7 @@ export default new Vuex.Store<ModuleState>({
           podests,
           dnf
         }
-      });
+      }).sort((a, b) => b.wins-a.wins);
     },
   },
   actions: {},
