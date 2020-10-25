@@ -19,6 +19,15 @@
         </tr>
         </thead>
         <tbody>
+        <tr
+            v-for="item in racerStats()"
+            :key="item.racer"
+        >
+          <td>{{ item.racer }} </td>
+          <td>{{ item.wins }}</td>
+          <td>{{ item.podests }}</td>
+          <td>{{ item.dnf }}</td>
+        </tr>
         </tbody>
       </template>
     </v-simple-table>
@@ -32,7 +41,9 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Racers extends Vue {
 
-
+  racerStats() {
+    return this.$store.getters.getRacerStats("266441B9-9F08-4A1C-A04B-C1B6691C8519");
+  }
 }
 </script>
 
