@@ -2,7 +2,12 @@
   <v-container v-if="!!races">
     <season-result :season="season"></season-result>
     <v-divider class="mt-5 mb-5"></v-divider>
-    <v-expansion-panels>
+    <v-expansion-panels >
+      <v-expansion-panel v-if="!finished" readonly>
+        <v-expansion-panel-header expand-icon="mdi-plus" color="success lighten-1" @click.stop="dialog = true">
+          Hinzufügen
+        </v-expansion-panel-header>
+      </v-expansion-panel>
       <v-expansion-panel v-for="race in races" :key="race.order">
         <v-expansion-panel-header>
           <div class="text-h5">
@@ -15,6 +20,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
+    <race-form-dialog :dialog="dialog" @close-dialog="dialog = false"></race-form-dialog>
   </v-container>
 </template>
 
@@ -23,14 +29,17 @@ import {Component, Vue} from "vue-property-decorator";
 import RaceComp from "@/components/RaceComp.vue";
 import { RaceDto, SeasonDto } from "@/types/Season";
 import SeasonResult from "@/components/SeasonResult.vue";
+import RaceFormDialog from "@/components/RaceFormDialog.vue";
 
 @Component({
   components: {
+    RaceFormDialog,
     SeasonResult,
     RaceComp
   }
 })
 export default class Season extends Vue {
+  dialog = false;
 
   get season(): SeasonDto {
     const id = this.$route.params.id;
@@ -43,6 +52,11 @@ export default class Season extends Vue {
     return [];
   }
 
+  get finished(): boolean {
+    if (!this.season?.races)
+      return false;
+    return this.season.races.length === this.season.plannedRaces;
+  }
 }
 
 </script>
