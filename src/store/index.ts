@@ -41,6 +41,10 @@ export default new Vuex.Store<ModuleState>({
           position: index+1
         }
       });
+    },
+
+    getRacerStats: (state) => {
+      return [];
     }
   },
   actions: {},

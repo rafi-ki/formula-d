@@ -4,6 +4,9 @@
       <v-btn text @click="toHome">
         <v-icon>mdi-home</v-icon>
       </v-btn>
+      <v-btn text @click="toRacers">
+        <v-icon>mdi-racing-helmet</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -31,6 +34,10 @@ export default class App extends Vue {
 
   toHome() {
     this.$router.push("/");
+  }
+
+  toRacers() {
+    this.$router.push("/racers");
   }
 }
 </script>

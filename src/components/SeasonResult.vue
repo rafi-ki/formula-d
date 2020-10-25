@@ -4,7 +4,6 @@
       elevation="4"
       width="100%"
       max-width="50em"
-      color="green lighten-3"
   >
     <v-container v-if="!!season">
       <div class="text-h5"> {{ season.name }} - Rennen {{amountRaces}}/{{season.plannedRaces}}</div>
