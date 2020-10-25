@@ -7,7 +7,7 @@
         <v-expansion-panel-header>
           <div class="text-h5">
             <span class="mr-2">{{ race.order }}</span><span class="font-italic">"{{ race.name }}"</span>
-            <div class="text-subtitle-1"> {{ race.track }}</div>
+            <div class="text-subtitle-1">{{ race.date }} @ {{ race.track }} </div>
           </div>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
