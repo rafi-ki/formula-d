@@ -16,7 +16,8 @@
           </div>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <race-comp  :result="race"></race-comp>
+          <race-comp v-if="race.items" :race="race"></race-comp>
+          <v-btn v-if="!race.items" text>Eintragen</v-btn>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>

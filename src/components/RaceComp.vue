@@ -5,8 +5,8 @@
       width="100%"
       max-width="50em"
   >
-    <v-container class="mt-2" v-if="!!result">
-      <result-table-comp :items="result.items" :qualifying="result.qualifying"></result-table-comp>
+    <v-container class="mt-2" v-if="!!race">
+      <result-table-comp :items="race.items" :qualifying="race.qualifying"></result-table-comp>
     </v-container>
   </v-sheet>
 </template>
@@ -23,7 +23,7 @@ import ResultTableComp from "@/components/ResultTableComp.vue";
 })
 export default class RaceComp extends Vue {
   @Prop()
-  result!: RaceDto;
+  race!: RaceDto;
 }
 </script>
 
