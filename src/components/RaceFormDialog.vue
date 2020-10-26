@@ -65,7 +65,6 @@ export default class RaceFormDialog extends Vue {
   }
 
   done() {
-    this.racerIndex = 0;
     const raceDto = {
       name: this.raceName,
       track: this.raceTrack,
