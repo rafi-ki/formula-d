@@ -5,7 +5,7 @@
     <v-expansion-panels>
       <v-expansion-panel v-if="!finished" readonly dark>
         <v-expansion-panel-header expand-icon="mdi-plus" @click.stop="dialog = true">
-          Hinzufügen
+          Neues Rennen
         </v-expansion-panel-header>
       </v-expansion-panel>
       <v-expansion-panel v-for="race in races" :key="race.order">
@@ -17,7 +17,7 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <race-comp v-if="race.items" :race="race"></race-comp>
-          <v-btn v-if="!race.items" text>Eintragen</v-btn>
+          <v-btn v-if="!race.items" text>Ergebnis eintragen</v-btn>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>

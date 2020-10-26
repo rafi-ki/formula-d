@@ -39,7 +39,7 @@ export default class SeasonResult extends Vue {
   get amountRaces(): number {
     if (!this.season?.races)
       return 0;
-    return this.season.races.length;
+    return Object.keys(this.season.races).length;
   }
 }
 </script>
