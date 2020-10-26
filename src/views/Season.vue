@@ -2,9 +2,9 @@
   <v-container v-if="!!races">
     <season-result :season="season"></season-result>
     <v-divider class="mt-5 mb-5"></v-divider>
-    <v-expansion-panels >
-      <v-expansion-panel v-if="!finished" readonly>
-        <v-expansion-panel-header expand-icon="mdi-plus" color="success lighten-1" @click.stop="dialog = true">
+    <v-expansion-panels>
+      <v-expansion-panel v-if="!finished" readonly dark>
+        <v-expansion-panel-header expand-icon="mdi-plus" @click.stop="dialog = true">
           Hinzufügen
         </v-expansion-panel-header>
       </v-expansion-panel>
@@ -20,7 +20,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-    <race-form-dialog :dialog="dialog" @close-dialog="dialog = false"></race-form-dialog>
+    <race-form-dialog :dialog="dialog" :season-id="$route.params.id" :last-order="lastOrder"  @close-dialog="dialog = false"></race-form-dialog>
   </v-container>
 </template>
 
@@ -48,8 +48,14 @@ export default class Season extends Vue {
 
   get races(): RaceDto[] {
     if (this.season?.races)
-      return this.season.races.sort((a, b) => b.order - a.order);
+      return Object.values(this.season.races).sort((a, b) => b.order - a.order);
     return [];
+  }
+
+  get lastOrder(): number {
+    if (this.races.length > 0)
+      return this.races[0].order;
+    return 0;
   }
 
   get finished(): boolean {
