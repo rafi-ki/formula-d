@@ -32,7 +32,8 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from "vue-property-decorator";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/database";
 import { RaceDto } from "@/types/Season";
 
 @Component({
@@ -60,7 +61,6 @@ export default class QualifyingDialog extends Vue {
     const racers = this.qualifying.split(",").map(x => x.trim());
     const newRace = this.race;
     newRace.qualifying = racers;
-    console.log(this.race);
     const raceRef = firebase.database().ref("seasons/" + this.seasonId + "/races/" + this.race.id);
     raceRef.set(newRace).then(() => {
       this.closeDialog();

@@ -11,7 +11,6 @@
       </v-container>
     </v-sheet>
   </div>
-
 </template>
 
 <script lang="ts">

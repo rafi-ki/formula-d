@@ -16,11 +16,10 @@
           </div>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-
           <qualifying v-if="race.qualifying" :qualifying="race.qualifying"></qualifying>
           <race-comp v-if="race.items" :race="race"></race-comp>
           <div class="mt-5">
-            <v-btn v-if="!race.items" outlined>
+            <v-btn v-if="!race.items" outlined @click="resultDialog = true">
               <v-icon left>
                 mdi-plus
               </v-icon>
@@ -35,7 +34,7 @@
           </div>
         </v-expansion-panel-content>
         <qualifying-dialog :dialog="qualifyingDialog" :season-id="$route.params.id" :race="race" @close-dialog="qualifyingDialog = false"></qualifying-dialog>
-
+        <result-dialog :dialog="resultDialog" :season-id="$route.params.id" :race="race" @close-dialog="resultDialog = false"></result-dialog>
       </v-expansion-panel>
     </v-expansion-panels>
     <race-form-dialog :dialog="dialog" :season-id="$route.params.id" :last-order="lastOrder"  @close-dialog="dialog = false"></race-form-dialog>
@@ -51,9 +50,11 @@ import SeasonResult from "@/components/SeasonResult.vue";
 import RaceFormDialog from "@/components/dialogs/RaceFormDialog.vue";
 import QualifyingDialog from "@/components/dialogs/QualifyingDialog.vue";
 import Qualifying from "@/components/Qualifying.vue";
+import ResultDialog from "@/components/dialogs/ResultDialog.vue";
 
 @Component({
   components: {
+    ResultDialog,
     Qualifying,
     QualifyingDialog,
     RaceFormDialog,
@@ -64,6 +65,7 @@ import Qualifying from "@/components/Qualifying.vue";
 export default class Season extends Vue {
   dialog = false;
   qualifyingDialog = false;
+  resultDialog = false;
 
   get season(): SeasonDto {
     const id = this.$route.params.id;
