@@ -58,7 +58,7 @@ export default class Racers extends Vue {
   amountRaces(season: SeasonDto): number {
     if (!season?.races)
       return 0;
-    return season.races.length;
+    return Object.keys(season.races).length;
   }
 }
 </script>

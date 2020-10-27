@@ -16,6 +16,8 @@
           </div>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
+
+          <qualifying v-if="race.qualifying" :qualifying="race.qualifying"></qualifying>
           <race-comp v-if="race.items" :race="race"></race-comp>
           <div class="mt-5">
             <v-btn v-if="!race.items" outlined>
@@ -24,19 +26,20 @@
               </v-icon>
               Ergebnis
             </v-btn>
-            <v-btn v-if="!race.qualifying" outlined class="ml-2">
+            <v-btn v-if="!race.qualifying" outlined class="ml-2" @click="qualifyingDialog = true">
               <v-icon left>
                 mdi-plus
               </v-icon>
               Qualifying
             </v-btn>
           </div>
-
-
         </v-expansion-panel-content>
+        <qualifying-dialog :dialog="qualifyingDialog" :season-id="$route.params.id" :race="race" @close-dialog="qualifyingDialog = false"></qualifying-dialog>
+
       </v-expansion-panel>
     </v-expansion-panels>
     <race-form-dialog :dialog="dialog" :season-id="$route.params.id" :last-order="lastOrder"  @close-dialog="dialog = false"></race-form-dialog>
+
   </v-container>
 </template>
 
@@ -45,10 +48,14 @@ import {Component, Vue} from "vue-property-decorator";
 import RaceComp from "@/components/RaceComp.vue";
 import { RaceDto, SeasonDto } from "@/types/Season";
 import SeasonResult from "@/components/SeasonResult.vue";
-import RaceFormDialog from "@/components/RaceFormDialog.vue";
+import RaceFormDialog from "@/components/dialogs/RaceFormDialog.vue";
+import QualifyingDialog from "@/components/dialogs/QualifyingDialog.vue";
+import Qualifying from "@/components/Qualifying.vue";
 
 @Component({
   components: {
+    Qualifying,
+    QualifyingDialog,
     RaceFormDialog,
     SeasonResult,
     RaceComp
@@ -56,6 +63,7 @@ import RaceFormDialog from "@/components/RaceFormDialog.vue";
 })
 export default class Season extends Vue {
   dialog = false;
+  qualifyingDialog = false;
 
   get season(): SeasonDto {
     const id = this.$route.params.id;
@@ -77,7 +85,7 @@ export default class Season extends Vue {
   get finished(): boolean {
     if (!this.season?.races)
       return false;
-    return this.season.races.length === this.season.plannedRaces;
+    return Object.keys(this.season.races).length === this.season.plannedRaces;
   }
 }
 

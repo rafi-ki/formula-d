@@ -27,7 +27,7 @@ export default class SeasonResult extends Vue {
   get finished(): boolean {
     if (!this.season?.races)
       return false;
-    return this.season.races.length === this.season.plannedRaces;
+    return this.amountRaces === this.season.plannedRaces;
   }
 
   get items(): RaceResultItemDto[] {

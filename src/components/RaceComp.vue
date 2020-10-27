@@ -1,14 +1,17 @@
 <template>
-  <v-sheet
-      class="mx-auto transition-swing rounded-lg"
-      elevation="4"
-      width="100%"
-      max-width="50em"
-  >
-    <v-container class="mt-2" v-if="!!race">
-      <result-table-comp :items="race.items" :qualifying="race.qualifying"></result-table-comp>
-    </v-container>
-  </v-sheet>
+  <div>
+    <div class="subtitle-1">Rennen</div>
+    <v-sheet
+        class="mx-auto transition-swing rounded-lg"
+        elevation="4"
+        width="100%"
+    >
+      <v-container class="mt-2" v-if="!!race">
+        <result-table-comp :items="race.items" :qualifying="race.qualifying"></result-table-comp>
+      </v-container>
+    </v-sheet>
+  </div>
+
 </template>
 
 <script lang="ts">

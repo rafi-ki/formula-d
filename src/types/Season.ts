@@ -4,7 +4,11 @@
     start: string,
     end: string,
     plannedRaces: number,
-    races: RaceDto[]
+    races: RacesDto
+}
+
+export interface RacesDto {
+    [key: string]: RaceDto;
 }
 
 export interface RaceDto {
