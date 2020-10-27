@@ -8,6 +8,7 @@
 }
 
 export interface RaceDto {
+    id: string,
     name: string,
     track: string,
     order: number,

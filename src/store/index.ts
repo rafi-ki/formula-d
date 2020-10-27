@@ -51,7 +51,7 @@ export default new Vuex.Store<ModuleState>({
       const season = state.seasons[id as any] as SeasonDto;
       if (!season?.races)
         return [];
-      const seasonItems = Object.values(season.races).flatMap(x => x.items);
+      const seasonItems = Object.values(season.races).filter(x => !!x.items).flatMap(x => x.items);
       const groupedByName = seasonItems.reduce((r: any, a) => {
         r[a.racer] = [...r[a.racer] || [], a];
         return r;
