@@ -44,9 +44,9 @@
 import { Component, Emit, Prop, Vue } from "vue-property-decorator";
 import * as firebase from "firebase/app";
 import "firebase/database";
+import { RaceDto } from "@/types/Season";
 
-@Component({
-})
+@Component
 export default class RaceFormDialog extends Vue {
   @Prop()
   dialog = false;
@@ -70,9 +70,12 @@ export default class RaceFormDialog extends Vue {
       track: this.raceTrack,
       date: this.raceDate,
       order: this.lastOrder+1
-    }
-    const racesRef = firebase.database().ref("seasons/" + this.seasonId + "/races");
-    racesRef.push(raceDto).then(() => {
+    } as RaceDto;
+    const raceId = firebase.database().ref("seasons/" + this.seasonId + "/races").push(raceDto).key;
+    if (raceId)
+      raceDto.id = raceId;
+    const raceRef = firebase.database().ref("seasons/" + this.seasonId + "/races/" + raceDto.id);
+    raceRef.set(raceDto).then(() => {
       this.closeDialog();
     });
   }

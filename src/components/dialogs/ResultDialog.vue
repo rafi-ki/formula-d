@@ -7,6 +7,14 @@
     <v-card>
       <v-card-title class="headline">Qualifying</v-card-title>
       <v-card-text>
+        <v-row col="12">
+          <v-chip v-for="result in sortedResults" :key="result.racer" class="ma-1" outlined>
+            <v-avatar left>
+              {{ result.position }}.
+            </v-avatar>
+            {{ result.racer }}
+          </v-chip>
+        </v-row>
         <v-row>
           <v-col cols="4">
             <v-combobox
@@ -31,7 +39,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="success" outlined @click="next">
-          Nächster
+          Hinzufügen & Nächster
         </v-btn>
         <v-btn
             color="success"
@@ -80,6 +88,16 @@ export default class ResultDialog extends Vue {
 
   results: RaceResultItemDto[] = [];
 
+  get sortedResults() {
+    return this.results.sort((a, b) =>{
+      if (a.position === 0)
+        return 1;
+      if (b.position === 0)
+        return -1;
+      return a.position - b.position
+    } );
+  }
+
   @Emit()
   closeDialog() {
     // empty on purpose
@@ -95,6 +113,7 @@ export default class ResultDialog extends Vue {
   }
 
   cancel() {
+    this.results = [];
     this.closeDialog();
   }
 
@@ -103,8 +122,7 @@ export default class ResultDialog extends Vue {
     newRace.items = this.results;
     const raceRef = firebase.database().ref("seasons/" + this.seasonId + "/races/" + this.race.id);
     raceRef.set(newRace).then(() => {
-      this.results = [];
-      this.closeDialog();
+      this.cancel();
     });
   }
 }
