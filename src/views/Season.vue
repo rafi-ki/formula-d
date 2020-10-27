@@ -17,7 +17,22 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <race-comp v-if="race.items" :race="race"></race-comp>
-          <v-btn v-if="!race.items" text>Ergebnis eintragen</v-btn>
+          <div class="mt-5">
+            <v-btn v-if="!race.items" outlined>
+              <v-icon left>
+                mdi-plus
+              </v-icon>
+              Ergebnis
+            </v-btn>
+            <v-btn v-if="!race.qualifying" outlined class="ml-2">
+              <v-icon left>
+                mdi-plus
+              </v-icon>
+              Qualifying
+            </v-btn>
+          </div>
+
+
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
