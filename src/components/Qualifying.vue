@@ -1,11 +1,19 @@
 ﻿<template>
   <div>
-    <div class="subtitle-1">Qualifying</div>
-    <v-chip v-for="(racer, index) in qualifying" :key="racer" class="ma-1" :color="index===0 ? 'success' : ''" outlined>
+    <div class="subtitle-1">
+      Qualifying
+    </div>
+    <v-chip
+      v-for="(racer, index) in qualifying"
+      :key="index"
+      class="ma-1"
+      :color="index===0 ? 'success' : ''"
+      outlined
+    >
       <v-avatar
-          left
+        left
       >
-        {{ index + 1}}.
+        {{ index + 1 }}.
       </v-avatar>
       {{ racer }}
     </v-chip>
@@ -13,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Qualifying extends Vue {

@@ -1,28 +1,42 @@
 ﻿<template>
   <v-dialog
-      v-model="dialog"
-      @click:outside="cancel"
-      max-width = 500
+    max-width="500"
   >
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn
+        outlined
+        class="ml-2"
+        v-bind="attrs"
+        v-on="on"
+      >
+        <v-icon left>
+          mdi-plus
+        </v-icon>
+        Qualifying
+      </v-btn>
+    </template>
     <v-card>
-      <v-card-title class="headline">Qualifying</v-card-title>
+      <v-card-title class="headline">
+        Qualifying
+      </v-card-title>
       <v-card-text>
         <v-row>
           <v-col cols="12">
             <v-text-field
-                v-model="qualifying"
-                hint="Rennfahrer durch Beistrich getrennt."
-                persistent-hint
-                label="Beispiel: Podo, Markus, ..."
-            ></v-text-field>
+              v-model="qualifying"
+              hint="Rennfahrer durch Beistrich getrennt."
+              persistent-hint
+              label="Beispiel: Podo, Markus, ..."
+            />
           </v-col>
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-btn
-            color="success"
-            @click="done">
+          color="success"
+          @click="done"
+        >
           Passt
         </v-btn>
       </v-card-actions>
@@ -31,39 +45,29 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue } from "vue-property-decorator";
-import * as firebase from "firebase/app";
-import "firebase/database";
-import { RaceDto } from "@/types/Season";
+import {
+  Component, Prop, Vue,
+} from 'vue-property-decorator';
+import * as firebase from 'firebase/app';
+import 'firebase/database';
+import { RaceDto } from '@/types/Season';
 
 @Component
 export default class QualifyingDialog extends Vue {
   @Prop()
-  dialog = false;
-  @Prop()
   seasonId!: string;
+
   @Prop()
   race!: RaceDto;
 
-  qualifying = "";
-
-  @Emit()
-  closeDialog() {
-    // empty on purpose
-  }
-
-  cancel() {
-    this.closeDialog();
-  }
+  qualifying = '';
 
   done() {
-    const racers = this.qualifying.split(",").map(x => x.trim());
+    const racers = this.qualifying.split(',').map((x) => x.trim());
     const updatedRace = this.race;
     updatedRace.qualifying = racers;
-    const raceRef = firebase.database().ref("seasons/" + this.seasonId + "/races/" + this.race.id);
-    raceRef.set(updatedRace).then(() => {
-      this.closeDialog();
-    });
+    const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${this.race.id}`);
+    raceRef.set(updatedRace);
   }
 }
 </script>
