@@ -120,7 +120,7 @@ export default class ResultDialog extends Vue {
   done() {
     const newRace = this.race;
     newRace.items = this.results;
-    const raceRef = firebase.database().ref("seasons/" + this.seasonId + "/races/" + this.race.id);
+    const raceRef = firebase.database().ref("seasons/" + this.seasonId + "/races/" + newRace.id);
     raceRef.set(newRace).then(() => {
       this.cancel();
     });

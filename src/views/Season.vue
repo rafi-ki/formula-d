@@ -25,7 +25,7 @@
               </v-icon>
               Ergebnis
             </v-btn>
-            <v-btn v-if="!race.qualifying" outlined class="ml-2" @click="qualifyingDialog = true">
+            <v-btn v-if="!race.qualifying" outlined class="ml-2" @click="qualifyingDialog.set(race.id, true)">
               <v-icon left>
                 mdi-plus
               </v-icon>
@@ -33,7 +33,7 @@
             </v-btn>
           </div>
         </v-expansion-panel-content>
-        <qualifying-dialog :dialog="qualifyingDialog" :season-id="$route.params.id" :race="race" @close-dialog="qualifyingDialog = false"></qualifying-dialog>
+        <qualifying-dialog :dialog="qualifyingDialog.get(race.id)" :season-id="$route.params.id" :race="race" @close-dialog="qualifyingDialog.set(race.id, false)"></qualifying-dialog>
         <result-dialog :dialog="resultDialog" :season-id="$route.params.id" :race="race" @close-dialog="resultDialog = false"></result-dialog>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -64,7 +64,7 @@ import ResultDialog from "@/components/dialogs/ResultDialog.vue";
 })
 export default class Season extends Vue {
   dialog = false;
-  qualifyingDialog = false;
+  qualifyingDialog = new Map();
   resultDialog = false;
 
   get season(): SeasonDto {
