@@ -4,43 +4,50 @@
       v-for="season in seasons"
       :key="season.id"
     >
-      <div class="text-h5">
-        {{ season.name }} - Rennen {{ amountRaces(season) }}/{{ season.plannedRaces }}
-      </div>
-      <div class="text-subtitle-1">
-        {{ season.start }} - {{ season.end }}
-      </div>
-      <v-simple-table dense>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th class="text-left">
-                Rennfahrer
-              </th>
-              <th class="text-left">
-                Siege
-              </th>
-              <th class="text-left">
-                Podestplätze
-              </th>
-              <th class="text-left">
-                DNF
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="item in racerStats(season.id)"
-              :key="item.racer"
-            >
-              <td>{{ item.racer }} </td>
-              <td>{{ item.wins }}</td>
-              <td>{{ item.podests }}</td>
-              <td>{{ item.dnf }}</td>
-            </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
+      <v-sheet
+        class="transition-swing mb-2"
+        outlined
+      >
+        <v-container>
+          <div class="text-h5">
+            {{ season.name }} - Rennen {{ amountRaces(season) }}/{{ season.plannedRaces }}
+          </div>
+          <div class="text-subtitle-1">
+            {{ season.start }} - {{ season.end }}
+          </div>
+          <v-simple-table dense>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">
+                    Rennfahrer
+                  </th>
+                  <th class="text-left">
+                    Siege
+                  </th>
+                  <th class="text-left">
+                    Podestplätze
+                  </th>
+                  <th class="text-left">
+                    DNF
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="item in racerStats(season.id)"
+                  :key="item.racer"
+                >
+                  <td>{{ item.racer }} </td>
+                  <td>{{ item.wins }}</td>
+                  <td>{{ item.podests }}</td>
+                  <td>{{ item.dnf }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </v-container>
+      </v-sheet>
     </div>
   </v-container>
 </template>

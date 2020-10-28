@@ -2,13 +2,15 @@
   <v-dialog
     max-width="500"
     v-model="dialog"
+    @click:outside="reset"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
-        outlined
         v-on="on"
         v-bind="attrs"
         class="mx-1"
+        outlined
+        text
       >
         <v-icon
           left
@@ -36,18 +38,21 @@
             :key="result.racer"
             class="ma-1"
             outlined
+            close
+            @click:close="removeResult(result.racer)"
+            small
           >
             <v-avatar left>
               {{ result.position }}.
             </v-avatar>
-            {{ result.racer }}
+            {{ result.racer }} ({{ result.points }})
           </v-chip>
         </v-row>
         <v-row>
           <v-col cols="4">
             <v-combobox
               :items="racers"
-              label="Rennfahrer"
+              label="Fahrer"
               v-model="result.racer"
             />
           </v-col>
@@ -55,13 +60,13 @@
             <v-select
               :items="positionItems"
               label="Position"
-              v-model="result.position"
+              v-model.number="result.position"
             />
           </v-col>
           <v-col cols="4">
             <v-text-field
               label="Punkte"
-              v-model="result.points"
+              v-model.number="result.points"
             />
           </v-col>
         </v-row>
@@ -73,7 +78,7 @@
           outlined
           @click="next"
         >
-          Hinzufügen & Nächster
+          Hinzufügen
         </v-btn>
         <v-btn
           color="success"
@@ -85,7 +90,7 @@
           >
             mdi-check
           </v-icon>
-          Fertig
+          Passt
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -138,6 +143,10 @@ export default class ResultDialog extends Vue {
     return !!this.race.items;
   }
 
+  removeResult(racer: string) {
+    this.results = this.results.filter((x) => x.racer !== racer);
+  }
+
   createEmptyResult() {
     return { racer: '', points: 0, position: 0 };
   }
@@ -147,7 +156,7 @@ export default class ResultDialog extends Vue {
     this.result = this.createEmptyResult();
   }
 
-  cancel() {
+  reset() {
     this.results = [];
   }
 
@@ -157,6 +166,7 @@ export default class ResultDialog extends Vue {
     const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${newRace.id}`);
     raceRef.set(newRace).then(() => {
       this.dialog = false;
+      this.reset();
     });
   }
 }

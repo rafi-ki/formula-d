@@ -2,13 +2,15 @@
   <v-dialog
     max-width="500"
     v-model="dialog"
+    @click:outside="reset"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
-        outlined
         class="ml-2"
         v-bind="attrs"
         v-on="on"
+        outlined
+        text
       >
         <v-icon
           v-if="hasQualifying"
@@ -37,6 +39,7 @@
               hint="Rennfahrer durch Beistrich getrennt."
               persistent-hint
               label="Beispiel: Podo, Markus, ..."
+              clearable
             />
           </v-col>
         </v-row>
@@ -72,10 +75,14 @@ export default class QualifyingDialog extends Vue {
 
   dialog = false;
 
-  qualifying = '';
+  qualifying = this.race.qualifying ? this.race.qualifying.toString() : '';
 
   get hasQualifying(): boolean {
     return !!this.race.qualifying;
+  }
+
+  reset() {
+    this.qualifying = this.race.qualifying ? this.race.qualifying.toString() : '';
   }
 
   done() {
@@ -85,6 +92,7 @@ export default class QualifyingDialog extends Vue {
     const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${this.race.id}`);
     raceRef.set(updatedRace).then(() => {
       this.dialog = false;
+      this.reset();
     });
   }
 }
