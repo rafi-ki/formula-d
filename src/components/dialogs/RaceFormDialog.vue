@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-dialog
     v-model="dialog"
     @click:outside="cancel"

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-simple-table dense>
     <template v-slot:default>
       <thead>
@@ -20,7 +20,10 @@
           :key="item.racer"
           :class="{'red lighten-2': item.position===0}"
         >
-          <td>{{ item.position | position }} <span v-if="qualifyingPosition(item) !== 0">({{ qualifyingPosition(item) }})</span></td>
+          <td>
+            {{ item.position | position }}
+            <span v-if="qualifyingPosition(item) !== 0">({{ qualifyingPosition(item) }})</span>
+          </td>
           <td :class="{'text-decoration-line-through': item.position===0}">
             {{ item.racer }}
           </td>

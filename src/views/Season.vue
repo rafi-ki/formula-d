@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-container v-if="!!races">
     <season-result :season="season" />
     <v-divider class="mt-5 mb-5" />

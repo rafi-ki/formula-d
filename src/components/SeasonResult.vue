@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-sheet
     class="mx-auto transition-swing rounded-lg"
     elevation="4"

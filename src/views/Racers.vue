@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-container>
     <div
       v-for="season in seasons"

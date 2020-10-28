@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div>
     <div class="subtitle-1">
       Qualifying

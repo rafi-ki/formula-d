@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-card
     v-if="!!season"
     class="mx-auto mt-2"
