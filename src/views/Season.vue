@@ -39,12 +39,10 @@
           />
           <div class="mt-5">
             <qualifying-dialog
-              v-if="!race.qualifying"
               :season-id="$route.params.id"
               :race="race"
             />
             <result-dialog
-              v-if="!race.items"
               :season-id="$route.params.id"
               :race="race"
             />

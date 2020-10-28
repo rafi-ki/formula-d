@@ -1,6 +1,7 @@
 <template>
   <v-dialog
     max-width="500"
+    v-model="dialog"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
@@ -9,7 +10,16 @@
         v-bind="attrs"
         class="mx-1"
       >
-        <v-icon left>
+        <v-icon
+          left
+          v-if="hasResult"
+        >
+          mdi-pencil
+        </v-icon>
+        <v-icon
+          left
+          v-if="!hasResult"
+        >
           mdi-plus
         </v-icon>
         Ergebnis
@@ -17,7 +27,7 @@
     </template>
     <v-card>
       <v-card-title class="headline">
-        Qualifying
+        Ergebnis
       </v-card-title>
       <v-card-text>
         <v-row col="12">
@@ -98,6 +108,8 @@ export default class ResultDialog extends Vue {
   @Prop()
   race!: RaceDto;
 
+  dialog = false;
+
   result: RaceResultItemDto = this.createEmptyResult();
 
   racers = ['Podo', 'Markus', 'Rafi', 'Georg', 'Thomas', 'Igor'];
@@ -122,6 +134,10 @@ export default class ResultDialog extends Vue {
     });
   }
 
+  get hasResult(): boolean {
+    return !!this.race.items;
+  }
+
   createEmptyResult() {
     return { racer: '', points: 0, position: 0 };
   }
@@ -139,7 +155,9 @@ export default class ResultDialog extends Vue {
     const newRace = this.race;
     newRace.items = this.results;
     const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${newRace.id}`);
-    raceRef.set(newRace);
+    raceRef.set(newRace).then(() => {
+      this.dialog = false;
+    });
   }
 }
 </script>

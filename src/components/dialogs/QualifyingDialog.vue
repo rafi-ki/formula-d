@@ -1,6 +1,7 @@
 <template>
   <v-dialog
     max-width="500"
+    v-model="dialog"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
@@ -9,7 +10,16 @@
         v-bind="attrs"
         v-on="on"
       >
-        <v-icon left>
+        <v-icon
+          v-if="hasQualifying"
+          left
+        >
+          mdi-pencil
+        </v-icon>
+        <v-icon
+          v-if="!hasQualifying"
+          left
+        >
           mdi-plus
         </v-icon>
         Qualifying
@@ -60,14 +70,22 @@ export default class QualifyingDialog extends Vue {
   @Prop()
   race!: RaceDto;
 
+  dialog = false;
+
   qualifying = '';
+
+  get hasQualifying(): boolean {
+    return !!this.race.qualifying;
+  }
 
   done() {
     const racers = this.qualifying.split(',').map((x) => x.trim());
     const updatedRace = this.race;
     updatedRace.qualifying = racers;
     const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${this.race.id}`);
-    raceRef.set(updatedRace);
+    raceRef.set(updatedRace).then(() => {
+      this.dialog = false;
+    });
   }
 }
 </script>
