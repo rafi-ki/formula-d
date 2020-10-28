@@ -8,7 +8,7 @@
     <v-list-item three-line>
       <v-list-item-content>
         <div v-if="commulated.length > 0" class="overline mb-4">
-          Podest: 1. {{ commulated[0].racer }} | 2. {{ commulated[1].racer }} | 3. {{ commulated[2].racer }}
+          Podest: {{ Podest }}
         </div>
         <v-list-item-title class="headline mb-1">
           {{  season.name }}
@@ -23,10 +23,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { RaceResultItemDto, SeasonDto } from "@/types/Season";
 
-@Component({
-  components: {
-  }
-})
+@Component
 export default class SeasonCard extends Vue {
 
   @Prop()
@@ -39,6 +36,18 @@ export default class SeasonCard extends Vue {
 
   get commulated(): RaceResultItemDto[] {
     return this.$store.getters.getComulated(this.season.id);
+  }
+
+  get Podest(): string {
+    const commulated = this.commulated;
+    let podest = "";
+    if (commulated.length > 0)
+      podest = podest.concat("1." + commulated[0].racer);
+    if (commulated.length > 1)
+      podest = podest.concat(" 2." + commulated[1].racer);
+    if (commulated.length > 2)
+      podest = podest.concat(" 3. " + commulated[2].racer);
+    return podest;
   }
 }
 </script>
