@@ -17,7 +17,7 @@
         <v-list-item-title class="headline mb-1">
           {{ season.name }}
         </v-list-item-title>
-        <v-list-item-subtitle>{{ season.start }} - {{ season.end }}</v-list-item-subtitle>
+        <v-list-item-subtitle>{{ seasonDuration }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
   </v-card>
@@ -41,12 +41,16 @@ export default class SeasonCard extends Vue {
     return this.$store.getters.getComulated(this.season.id);
   }
 
+  get seasonDuration(): string {
+    return `${this.season.start.toLocaleDateString('de')} - ${this.season.end.toLocaleDateString('de')}`;
+  }
+
   get Podest(): string {
     const { commulated } = this;
     let podest = '';
     if (commulated.length > 0) { podest = podest.concat(`1.${commulated[0].racer}`); }
-    if (commulated.length > 1) { podest = podest.concat(` 2.${commulated[1].racer}`); }
-    if (commulated.length > 2) { podest = podest.concat(` 3. ${commulated[2].racer}`); }
+    if (commulated.length > 1) { podest = podest.concat(` | 2.${commulated[1].racer}`); }
+    if (commulated.length > 2) { podest = podest.concat(` | 3. ${commulated[2].racer}`); }
     return podest;
   }
 }

@@ -10,7 +10,7 @@
         {{ season.name }} - Rennen {{ amountRaces }}/{{ season.plannedRaces }}
       </div>
       <div class="text-subtitle-1">
-        {{ season.start }} - {{ season.end }}
+        {{ seasonDuration }}
       </div>
       <result-table-comp :items="items" />
     </v-container>
@@ -42,6 +42,10 @@ export default class SeasonResult extends Vue {
   get amountRaces(): number {
     if (!this.season?.races) { return 0; }
     return Object.keys(this.season.races).length;
+  }
+
+  get seasonDuration(): string {
+    return `${this.season.start.toLocaleDateString('de')} - ${this.season.end.toLocaleDateString('de')}`;
   }
 }
 </script>

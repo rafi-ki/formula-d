@@ -1,8 +1,8 @@
 export interface SeasonDto {
     id: string;
     name: string;
-    start: string;
-    end: string;
+    start: Date;
+    end: Date;
     plannedRaces: number;
     races: RacesDto;
 }

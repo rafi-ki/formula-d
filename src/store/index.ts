@@ -21,11 +21,14 @@ export default new Vuex.Store<ModuleState>({
       state.seasons = Object.keys(seasons).map((x) => {
         const item = seasons[x];
         const key = x;
+        item.start = new Date(item.start);
+        if (item.end) item.end = new Date(item.end);
+        else item.end = new Date('2025-01-01');
         return {
           key,
           ...item,
         };
-      });
+      }).sort((a, b) => b.start - a.start);
     },
   },
   getters: {
