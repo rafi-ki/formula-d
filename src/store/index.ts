@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { RaceResultItemDto, SeasonDto, SeasonsDto } from '@/types/Season';
+import { RaceResultItemDto, SeasonDto } from '@/types/Season';
 
 function isPodest(item: RaceResultItemDto) {
   return item.position === 1 || item.position === 2 || item.position === 3;
@@ -9,21 +9,30 @@ function isPodest(item: RaceResultItemDto) {
 Vue.use(Vuex);
 
 export interface ModuleState {
-  seasons: SeasonsDto;
+  seasons: SeasonDto[];
 }
 
 export default new Vuex.Store<ModuleState>({
   state: {
-    seasons: {},
+    seasons: [],
   },
   mutations: {
     SetSeasons(state, seasons) {
-      state.seasons = seasons;
+      state.seasons = Object.keys(seasons).map((x) => {
+        const item = seasons[x];
+        const key = x;
+        return {
+          key,
+          ...item,
+        };
+      });
     },
   },
   getters: {
+    getSeason: (state) => (id: string) => state.seasons.find((x) => x.id === id) as SeasonDto,
+
     getComulated: (state) => (id: string) => {
-      const season = state.seasons[id] as SeasonDto;
+      const season = state.seasons.find((x) => x.id === id) as SeasonDto;
       if (!season?.races) { return []; }
       const seasonItems = Object.values(season.races)
         .filter((x) => !!x.items).flatMap((x) => x.items);
@@ -47,7 +56,7 @@ export default new Vuex.Store<ModuleState>({
     },
 
     getRacerStats: (state) => (id: string) => {
-      const season = state.seasons[id] as SeasonDto;
+      const season = state.seasons.find((x) => x.id === id) as SeasonDto;
       if (!season?.races) { return []; }
       const seasonItems = Object.values(season.races)
         .filter((x) => !!x.items).flatMap((x) => x.items);

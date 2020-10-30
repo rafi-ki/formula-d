@@ -86,7 +86,7 @@ export default class Season extends Vue {
 
   get season(): SeasonDto {
     const { id } = this.$route.params;
-    return this.$store.state.seasons[id] as SeasonDto;
+    return this.$store.getters.getSeason(id);
   }
 
   get races(): RaceDto[] {

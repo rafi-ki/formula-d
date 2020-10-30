@@ -7,10 +7,6 @@ export interface SeasonDto {
     races: RacesDto;
 }
 
-export interface SeasonsDto {
-    [key: string]: SeasonDto;
-}
-
 export interface RacesDto {
     [key: string]: RaceDto;
 }
