@@ -6,20 +6,15 @@
     outlined
     @click="move"
   >
-    <v-list-item three-line>
-      <v-list-item-content>
-        <div
-          v-if="commulated.length > 0"
-          class="overline mb-4"
-        >
-          Podest: {{ Podest }}
-        </div>
-        <v-list-item-title class="headline mb-1">
-          {{ season.name }}
-        </v-list-item-title>
-        <v-list-item-subtitle>{{ seasonDuration }}</v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
+    <v-card-title>
+      {{ season.name }}
+    </v-card-title>
+    <v-card-subtitle>
+      {{ seasonDuration }}
+    </v-card-subtitle>
+    <v-card-text>
+      Podest: {{ Podest }}
+    </v-card-text>
   </v-card>
 </template>
 
