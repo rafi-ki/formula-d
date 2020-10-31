@@ -2,9 +2,8 @@
   <v-card
     v-if="!!season"
     class="mx-auto mt-2"
-    max-width="344"
+    max-width="500"
     outlined
-    @click="move"
   >
     <v-card-title>
       {{ season.name }}
@@ -15,17 +14,52 @@
     <v-card-text>
       Podest: {{ Podest }}
     </v-card-text>
+    <v-card-actions>
+      <v-btn
+        text
+        @click="move"
+        color="primary"
+        outlined
+      >
+        Ansehen
+      </v-btn>
+      <v-spacer />
+      <v-btn
+        @click="showRaces = !showRaces"
+        text
+      >
+        {{ races.length }}/{{ season.plannedRaces }}
+        <v-icon>
+          {{ showRaces ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+        </v-icon>
+      </v-btn>
+    </v-card-actions>
+    <v-expand-transition>
+      <div v-show="showRaces">
+        <v-divider />
+        <v-card-text>
+          <div
+            v-for="race in races"
+            :key="race.name"
+          >
+            {{ race.name }}
+          </div>
+        </v-card-text>
+      </div>
+    </v-expand-transition>
   </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { RaceResultItemDto, SeasonDto } from '@/types/Season';
+import { RaceDto, RaceResultItemDto, SeasonDto } from '@/types/Season';
 
 @Component
 export default class SeasonCard extends Vue {
   @Prop()
   season!: SeasonDto;
+
+  showRaces = false;
 
   move() {
     const path = `season/${this.season.id}`;
@@ -38,6 +72,10 @@ export default class SeasonCard extends Vue {
 
   get seasonDuration(): string {
     return `${this.season.start.toLocaleDateString('de')} - ${this.season.end.toLocaleDateString('de')}`;
+  }
+
+  get races(): RaceDto[] {
+    return Object.values(this.season.races).sort((a, b) => b.order - a.order);
   }
 
   get Podest(): string {

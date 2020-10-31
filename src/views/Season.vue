@@ -2,7 +2,7 @@
   <v-container v-if="!!races">
     <season-result :season="season" />
     <v-divider class="mt-5 mb-5" />
-    <v-expansion-panels>
+    <v-expansion-panels multiple>
       <v-expansion-panel
         v-if="!finished"
         readonly
