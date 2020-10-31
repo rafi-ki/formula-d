@@ -9,7 +9,15 @@
       {{ season.name }}
     </v-card-title>
     <v-card-subtitle>
-      {{ seasonDuration }}
+      <span>{{ seasonDuration }}</span>
+      <v-chip
+        v-if="season.end > Date.now()"
+        small
+        color="success"
+        class="ml-2"
+      >
+        aktiv
+      </v-chip>
     </v-card-subtitle>
     <v-card-text>
       Podest: {{ Podest }}
@@ -42,7 +50,7 @@
             v-for="race in races"
             :key="race.name"
           >
-            {{ race.name }}
+            {{ race.order }} | {{ race.name }}
           </div>
         </v-card-text>
       </div>
