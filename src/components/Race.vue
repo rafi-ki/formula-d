@@ -12,8 +12,8 @@
         class="mt-2"
         v-if="!!race"
       >
-        <result-table-comp
-          :items="race.items"
+        <result-table
+          :results="race.results"
           :qualifying="race.qualifying"
         />
       </v-container>
@@ -24,11 +24,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RaceDto } from '@/types/Season';
-import ResultTableComp from '@/components/ResultTableComp.vue';
+import ResultTable from '@/components/ResultTable.vue';
 
 @Component({
   components: {
-    ResultTableComp,
+    ResultTable,
   },
 })
 export default class RaceComp extends Vue {

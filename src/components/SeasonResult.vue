@@ -12,18 +12,18 @@
       <div class="text-subtitle-1">
         {{ seasonDuration }}
       </div>
-      <result-table-comp :items="items" />
+      <result-table :results="results" />
     </v-container>
   </v-sheet>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { RaceResultItemDto, SeasonDto } from '@/types/Season';
-import ResultTableComp from '@/components/ResultTableComp.vue';
+import { RacerResultDto, SeasonDto } from '@/types/Season';
+import ResultTable from '@/components/ResultTable.vue';
 
 @Component({
-  components: { ResultTableComp },
+  components: { ResultTable },
 })
 export default class SeasonResult extends Vue {
   @Prop()
@@ -34,7 +34,7 @@ export default class SeasonResult extends Vue {
     return this.amountRaces === this.season.plannedRaces;
   }
 
-  get items(): RaceResultItemDto[] {
+  get results(): RacerResultDto[] {
     if (!this.season) { return []; }
     return this.$store.getters.getComulated(this.season.id);
   }

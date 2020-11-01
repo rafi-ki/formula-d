@@ -101,7 +101,7 @@
 import {
   Component, Prop, Vue,
 } from 'vue-property-decorator';
-import { RaceDto, RaceResultItemDto } from '@/types/Season';
+import { RaceDto, RacerResultDto } from '@/types/Season';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
 
@@ -115,7 +115,7 @@ export default class ResultDialog extends Vue {
 
   dialog = false;
 
-  result: RaceResultItemDto = this.createEmptyResult();
+  result: RacerResultDto = this.createEmptyResult();
 
   racers = ['Podo', 'Markus', 'Rafi', 'Georg', 'Thomas', 'Igor'];
 
@@ -129,7 +129,7 @@ export default class ResultDialog extends Vue {
     { text: 'DNF', value: 0 },
   ];
 
-  results: RaceResultItemDto[] = [];
+  results: RacerResultDto[] = [];
 
   get sortedResults() {
     return this.results.sort((a, b) => {
@@ -140,7 +140,7 @@ export default class ResultDialog extends Vue {
   }
 
   get hasResult(): boolean {
-    return !!this.race.items;
+    return !!this.race.results;
   }
 
   removeResult(racer: string) {
@@ -162,7 +162,7 @@ export default class ResultDialog extends Vue {
 
   done() {
     const newRace = this.race;
-    newRace.items = this.results;
+    newRace.results = this.results;
     const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${newRace.id}`);
     raceRef.set(newRace).then(() => {
       this.dialog = false;

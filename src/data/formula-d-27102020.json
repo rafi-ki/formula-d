@@ -1,7 +1,6 @@
 {
   "seasons" : {
     "CA4BA61A-CFBE-4CE3-95AD-2CEEF0400E2E" : {
-      "end" : "unbekannt",
       "id" : "CA4BA61A-CFBE-4CE3-95AD-2CEEF0400E2E",
       "name" : "R.I.P. Tommels Season",
       "plannedRaces" : 6,
@@ -9,7 +8,7 @@
         "24B2FB03-3FC2-49F2-87F7-E329BC6F71CC":  {
           "id": "24B2FB03-3FC2-49F2-87F7-E329BC6F71CC",
           "date" : "2018-06-08",
-          "items" : [ {
+          "results" : [ {
             "points" : 11,
             "position" : 1,
             "racer" : "Markus"
@@ -41,7 +40,7 @@
         "4427363A-A1DA-4CC3-8C1D-83794B89FFBA": {
           "id": "4427363A-A1DA-4CC3-8C1D-83794B89FFBA",
           "date" : "2018-06-29",
-          "items" : [ {
+          "results" : [ {
             "points" : 11,
             "position" : 1,
             "racer" : "Podo"
@@ -70,19 +69,17 @@
           "order" : 6,
           "track" : "Monaco"
         }
-      } ,
-      "start" : "Juni 2018"
+      }
     },
     "321EE6B4-E268-45D7-AB9F-7A63234301DF" : {
-      "end" : "unbekannt",
       "id" : "321EE6B4-E268-45D7-AB9F-7A63234301DF",
-      "name" : "Pre Corona Mini Season",
+      "name" : "Pre Corona Season (canceled)",
       "plannedRaces" : 2,
       "races" : {
         "75DC360C-F959-410C-86B3-5C5012FC15E9": {
           "id": "75DC360C-F959-410C-86B3-5C5012FC15E9",
           "date" : "2018-11-22",
-          "items" : [ {
+          "results" : [ {
             "points" : 11,
             "position" : 1,
             "racer" : "Podo"
@@ -114,7 +111,7 @@
         "91D0F6CE-28BA-451B-AD13-845BD5B62CB9": {
           "id": "91D0F6CE-28BA-451B-AD13-845BD5B62CB9",
           "date" : "2018-12-17",
-          "items" : [ {
+          "results" : [ {
             "points" : 12,
             "position" : 1,
             "racer" : "Georg"
@@ -147,11 +144,9 @@
           "order" : 2,
           "track" : "unbekannt"
         }
-      },
-      "start" : "November 2018"
+      }
     },
     "266441B9-9F08-4A1C-A04B-C1B6691C8519" : {
-      "end" : "Oktober 2020",
       "id" : "266441B9-9F08-4A1C-A04B-C1B6691C8519",
       "name" : "Corona Season",
       "plannedRaces" : 5,
@@ -159,7 +154,7 @@
         "CAECC067-1F25-4899-AF0E-DAA3D9872E1A": {
           "id": "CAECC067-1F25-4899-AF0E-DAA3D9872E1A",
           "date" : "2020-04-15",
-          "items" : [ {
+          "results" : [ {
             "points" : 11,
             "position" : 1,
             "racer" : "Rafi"
@@ -192,7 +187,7 @@
         "96A58F46-B653-4AD0-A7DC-E54D02A8EEDD": {
           "id": "96A58F46-B653-4AD0-A7DC-E54D02A8EEDD",
           "date" : "2020-05-02",
-          "items" : [ {
+          "results" : [ {
             "points" : 11,
             "position" : 1,
             "racer" : "Markus"
@@ -225,7 +220,7 @@
         "CED41EDB-D7C9-4BB9-9638-731A52864240": {
           "id": "CED41EDB-D7C9-4BB9-9638-731A52864240",
           "date" : "2020-05-27",
-          "items" : [ {
+          "results" : [ {
             "points" : 11,
             "position" : 1,
             "racer" : "Rafi"
@@ -258,7 +253,7 @@
         "E0B9394D-7FA7-446E-A014-EF6133C9376D": {
           "id": "E0B9394D-7FA7-446E-A014-EF6133C9376D",
           "date" : "2020-10-19",
-          "items" : [ {
+          "results" : [ {
             "points" : 11,
             "position" : 1,
             "racer" : "Podo"
@@ -291,7 +286,7 @@
         "C5094DDA-53B2-46E5-9C3F-43D71512A61F": {
           "id": "C5094DDA-53B2-46E5-9C3F-43D71512A61F",
           "date" : "2020-09-23",
-          "items" : [ {
+          "results" : [ {
             "points" : 11,
             "position" : 1,
             "racer" : "Markus"
@@ -320,12 +315,10 @@
           "order" : 4,
           "qualifying" : [ "Igor", "Markus", "Thomas", "Podo", "Rafi", "Georg" ],
           "track" : "Zeltweg"
-        } 
-      },
-      "start" : "April 2020"
+        }
+      }
     },
     "E8B5E5CF-C5E6-4F09-B617-03A984FD30C5" : {
-      "end" : "unbekannt",
       "id" : "E8B5E5CF-C5E6-4F09-B617-03A984FD30C5",
       "name" : "Christmas Season",
       "plannedRaces" : 10,
@@ -337,8 +330,7 @@
           "order" : 1,
           "track" : "Hawaii"
         }
-      },
-      "start" : "December 2020"
+      }
     }
   }
 }

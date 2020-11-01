@@ -74,7 +74,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { RaceDto, RaceResultItemDto, SeasonDto } from '@/types/Season';
+import { RaceDto, RacerResultDto, SeasonDto } from '@/types/Season';
 
 @Component
 export default class SeasonCard extends Vue {
@@ -88,7 +88,7 @@ export default class SeasonCard extends Vue {
     this.$router.push({ path });
   }
 
-  get commulated(): RaceResultItemDto[] {
+  get commulated(): RacerResultDto[] {
     return this.$store.getters.getComulated(this.season.id);
   }
 
@@ -97,6 +97,7 @@ export default class SeasonCard extends Vue {
   }
 
   get races(): RaceDto[] {
+    if (!this.season.races) return [];
     return Object.values(this.season.races).sort((a, b) => b.order - a.order);
   }
 
@@ -110,8 +111,8 @@ export default class SeasonCard extends Vue {
   }
 
   getWinner(race: RaceDto) {
-    if (race.items) {
-      return race.items.find((x) => x.position === 1)?.racer;
+    if (race.results) {
+      return race.results.find((x) => x.position === 1)?.racer;
     }
     return 'keiner';
   }

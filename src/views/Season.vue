@@ -33,8 +33,8 @@
             v-if="race.qualifying"
             :qualifying="race.qualifying"
           />
-          <race-comp
-            v-if="race.items"
+          <race
+            v-if="race.results"
             :race="race"
           />
           <div class="mt-5">
@@ -61,10 +61,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import RaceComp from '@/components/RaceComp.vue';
+import Race from '@/components/Race.vue';
 import { RaceDto, SeasonDto } from '@/types/Season';
 import SeasonResult from '@/components/SeasonResult.vue';
-import RaceFormDialog from '@/components/dialogs/RaceFormDialog.vue';
+import RaceFormDialog from '@/components/dialogs/RaceDialog.vue';
 import QualifyingDialog from '@/components/dialogs/QualifyingDialog.vue';
 import Qualifying from '@/components/Qualifying.vue';
 import ResultDialog from '@/components/dialogs/ResultDialog.vue';
@@ -76,7 +76,7 @@ import ResultDialog from '@/components/dialogs/ResultDialog.vue';
     QualifyingDialog,
     RaceFormDialog,
     SeasonResult,
-    RaceComp,
+    Race,
   },
 })
 export default class Season extends Vue {

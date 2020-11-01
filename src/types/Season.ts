@@ -18,10 +18,10 @@ export interface RaceDto {
     order: number;
     date: string;
     qualifying?: string[];
-    items: RaceResultItemDto[];
+    results: RacerResultDto[];
 }
 
-export interface RaceResultItemDto {
+export interface RacerResultDto {
     racer: string;
     position: number;
     points: number;

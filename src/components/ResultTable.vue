@@ -16,18 +16,18 @@
       </thead>
       <tbody>
         <tr
-          v-for="item in items"
-          :key="item.racer"
-          :class="{'red lighten-2': item.position===0}"
+          v-for="r in results"
+          :key="r.racer"
+          :class="{'red lighten-2': r.position===0}"
         >
           <td>
-            {{ item.position | position }}
-            <span v-if="qualifyingPosition(item) !== 0">({{ qualifyingPosition(item) }})</span>
+            {{ r.position | position }}
+            <span v-if="qualifyingPosition(r) !== 0">({{ qualifyingPosition(r) }})</span>
           </td>
-          <td :class="{'text-decoration-line-through': item.position===0}">
-            {{ item.racer }}
+          <td :class="{'text-decoration-line-through': r.position===0}">
+            {{ r.racer }}
           </td>
-          <td>{{ item.points }}</td>
+          <td>{{ r.points }}</td>
         </tr>
       </tbody>
     </template>
@@ -36,19 +36,19 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { RaceResultItemDto } from '@/types/Season';
+import { RacerResultDto } from '@/types/Season';
 
 @Component
 export default class ResultTableComp extends Vue {
   @Prop()
-  items!: RaceResultItemDto[];
+  results!: RacerResultDto[];
 
   @Prop()
   qualifying?: string[];
 
-  qualifyingPosition(item: RaceResultItemDto): number {
+  qualifyingPosition(r: RacerResultDto): number {
     if (!this.qualifying) { return 0; }
-    return this.qualifying.indexOf(item.racer) + 1;
+    return this.qualifying.indexOf(r.racer) + 1;
   }
 }
 </script>
