@@ -111,7 +111,7 @@ export default class SeasonCard extends Vue {
 
   getWinner(race: RaceDto) {
     if (race.items) {
-      return race.items?.find((x) => x.position === 1).racer;
+      return race.items.find((x) => x.position === 1)?.racer;
     }
     return 'keiner';
   }
