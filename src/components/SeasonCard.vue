@@ -11,17 +11,17 @@
     <v-card-subtitle>
       <span>{{ seasonDuration }}</span>
       <v-chip
-        v-if="season.end > Date.now()"
+        v-if="!seasonOver"
         small
         color="success"
         class="ml-2"
       >
         aktiv
       </v-chip>
+      <div v-if="Podest">
+        Stand: {{ Podest }}
+      </div>
     </v-card-subtitle>
-    <v-card-text>
-      Podest: {{ Podest }}
-    </v-card-text>
     <v-card-actions>
       <v-btn
         text
@@ -50,21 +50,16 @@
             v-for="race in races"
             :key="race.name"
           >
+            <span>{{ race.order }}. {{ race.name }}</span>
             <v-chip
-              x-small
-              class="mr-1"
-            >
-              {{ race.order }}
-            </v-chip>
-            <v-chip
+              v-if="race.results"
               x-small
               outlined
-              class="mr-2"
+              class="ml-2"
               color="success"
             >
               {{ getWinner(race) }}
             </v-chip>
-            <span>{{ race.name }}</span>
           </div>
         </v-card-text>
       </div>
@@ -115,6 +110,13 @@ export default class SeasonCard extends Vue {
       return race.results.find((x) => x.position === 1)?.racer;
     }
     return 'keiner';
+  }
+
+  get seasonOver(): boolean {
+    if (!this.season.races) {
+      return false;
+    }
+    return Object.keys(this.season.races).length === this.season.plannedRaces;
   }
 }
 </script>
