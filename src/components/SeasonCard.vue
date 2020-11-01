@@ -50,7 +50,21 @@
             v-for="race in races"
             :key="race.name"
           >
-            {{ race.order }} | {{ race.name }}
+            <v-chip
+              x-small
+              class="mr-1"
+            >
+              {{ race.order }}
+            </v-chip>
+            <v-chip
+              x-small
+              outlined
+              class="mr-2"
+              color="success"
+            >
+              {{ getWinner(race) }}
+            </v-chip>
+            <span>{{ race.name }}</span>
           </div>
         </v-card-text>
       </div>
@@ -93,6 +107,13 @@ export default class SeasonCard extends Vue {
     if (commulated.length > 1) { podest = podest.concat(` | 2.${commulated[1].racer}`); }
     if (commulated.length > 2) { podest = podest.concat(` | 3. ${commulated[2].racer}`); }
     return podest;
+  }
+
+  getWinner(race: RaceDto) {
+    if (race.items) {
+      return race.items?.find((x) => x.position === 1).racer;
+    }
+    return 'keiner';
   }
 }
 </script>
