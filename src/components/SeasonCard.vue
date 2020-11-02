@@ -46,21 +46,35 @@
       <div v-show="showRaces">
         <v-divider />
         <v-card-text>
-          <div
-            v-for="race in races"
-            :key="race.name"
-          >
-            <span>{{ race.order }}. {{ race.name }}</span>
-            <v-chip
-              v-if="race.results"
-              x-small
-              outlined
-              class="ml-2"
-              color="success"
-            >
-              {{ getWinner(race) }}
-            </v-chip>
+          <div class="font-weight-bold ml-8 mb-2">
+            <span v-if="!seasonOver">Heute</span>
+            <span v-if="seasonOver">Ende</span>
           </div>
+          <v-timeline
+            dense
+          >
+            <v-timeline-item
+              v-for="race in races"
+              :key="race.id"
+              small
+            >
+              <div class="font-weight-normal">
+                <strong>{{ race.name }}</strong>
+                <div>
+                  <v-chip
+                    v-if="race.results"
+                    x-small
+                    outlined
+                    class="mr-1"
+                    color="success"
+                  >
+                    {{ getWinner(race) }}
+                  </v-chip>
+                  {{ race.date }} @ {{ race.track }}
+                </div>
+              </div>
+            </v-timeline-item>
+          </v-timeline>
         </v-card-text>
       </div>
     </v-expand-transition>
