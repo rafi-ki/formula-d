@@ -7,6 +7,7 @@
         :season="season"
       />
     </v-container>
+    <season-dialog />
   </div>
 </template>
 
@@ -14,9 +15,11 @@
 import { Component, Vue } from 'vue-property-decorator';
 import SeasonCard from '@/components/SeasonCard.vue';
 import { SeasonDto } from '@/types/Season';
+import SeasonDialog from '@/components/dialogs/SeasonDialog.vue';
 
 @Component({
   components: {
+    SeasonDialog,
     SeasonCard,
   },
 })

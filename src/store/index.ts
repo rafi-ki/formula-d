@@ -20,7 +20,7 @@ export default new Vuex.Store<ModuleState>({
     SetSeasons(state, seasons) {
       state.seasons = Object.keys(seasons).map((x) => {
         const item = seasons[x];
-        const key = x;
+        const id = x;
         if (!item.races) {
           item.start = new Date();
           item.end = new Date();
@@ -32,7 +32,7 @@ export default new Vuex.Store<ModuleState>({
           item.end = new Date(lastRace.date);
         }
         return {
-          key,
+          id,
           ...item,
         };
       }).sort((a, b) => b.start - a.start);
