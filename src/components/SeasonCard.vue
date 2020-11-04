@@ -57,6 +57,7 @@
               v-for="race in races"
               :key="race.id"
               small
+              :icon="`mdi-numeric-${race.order}`"
             >
               <div class="font-weight-normal">
                 <strong>{{ race.name }}</strong>

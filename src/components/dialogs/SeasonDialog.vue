@@ -1,7 +1,7 @@
-﻿<template>
+<template>
   <v-dialog
     v-model="dialog"
-    @click:outside="dialog = false"
+    @click:outside="reset"
     max-width="500"
   >
     <template v-slot:activator="{ on, attrs }">
@@ -27,12 +27,14 @@
             <v-text-field
               label="Name"
               v-model="seasonName"
+              placeholder="Lockdown Season 2"
             />
           </v-col>
           <v-col>
             <v-text-field
-              label="Rennen"
+              label="Anzahl der Rennen"
               v-model="numberOfRaces"
+              placeholder="5"
             />
           </v-col>
         </v-row>
@@ -64,13 +66,19 @@ export default class SeasonDialog extends Vue {
   numberOfRaces: number | null = null;
 
   newSeason() {
-    const saison = {
+    const newSeason = {
       name: this.seasonName,
       plannedRaces: this.numberOfRaces,
     };
-    firebase.database().ref('seasons/').push(saison).then(() => {
-      this.dialog = false;
+    firebase.database().ref('seasons/').push(newSeason).then(() => {
+      this.reset();
     });
+  }
+
+  reset() {
+    this.seasonName = null;
+    this.numberOfRaces = null;
+    this.dialog = false;
   }
 }
 </script>
