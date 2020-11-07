@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { RaceDto, RacerResultDto, SeasonDto } from '@/types/Season';
+import {
+  RaceDto, RacerResultDto, Season, SeasonDto,
+} from '@/types/Season';
 
 function isPodest(item: RacerResultDto) {
   return item.position === 1 || item.position === 2 || item.position === 3;
@@ -9,7 +11,7 @@ function isPodest(item: RacerResultDto) {
 Vue.use(Vuex);
 
 export interface ModuleState {
-  seasons: SeasonDto[];
+  seasons: Season[];
 }
 
 export default new Vuex.Store<ModuleState>({
@@ -21,21 +23,25 @@ export default new Vuex.Store<ModuleState>({
       state.seasons = Object.keys(seasons).map((x) => {
         const item = seasons[x];
         const id = x;
-        if (!item.races) {
-          item.start = new Date();
-          item.end = new Date();
-        } else {
+        if (item.races) {
           const races = Object.values(item.races) as RaceDto[];
           const firstRace = races.sort((a, b) => a.order - b.order)[0];
           item.start = new Date(firstRace.date);
-          const lastRace = races.sort((a, b) => b.order - a.order)[0];
-          item.end = new Date(lastRace.date);
+          if (races.length === item.plannedRaces) {
+            const lastRace = races.sort((a, b) => b.order - a.order)[0];
+            item.end = new Date(lastRace.date);
+          }
         }
-        return {
+        return new Season({
           id,
           ...item,
-        };
-      }).sort((a, b) => b.start - a.start);
+        });
+      }).sort((a, b) => {
+        if (b.start && a.start) {
+          return b.start.getTime() - a.start.getTime();
+        }
+        return 0;
+      });
     },
   },
   getters: {

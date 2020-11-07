@@ -1,10 +1,50 @@
 export interface SeasonDto {
     id: string;
     name: string;
-    start: Date;
-    end: Date;
+    start?: Date;
+    end?: Date;
     plannedRaces: number;
     races: RacesDto;
+}
+
+export class Season implements SeasonDto {
+  end?: Date;
+
+  id: string;
+
+  name: string;
+
+  plannedRaces: number;
+
+  races: RacesDto;
+
+  start?: Date;
+
+  constructor(s: SeasonDto) {
+    this.id = s.id;
+    this.name = s.name;
+    this.plannedRaces = s.plannedRaces;
+    this.races = s.races;
+    this.end = s.end;
+    this.start = s.start;
+  }
+
+  duration(): string {
+    if (this.start && this.end) {
+      return `${this.start.toLocaleDateString('de')} - ${this.end.toLocaleDateString('de')}`;
+    }
+    if (this.start) {
+      return `Eröffnet am ${this.start.toLocaleDateString('de')}`;
+    }
+    return 'Noch nicht eröffnet';
+  }
+
+  isOver(): boolean {
+    if (!this.races) {
+      return false;
+    }
+    return Object.keys(this.races).length === this.plannedRaces;
+  }
 }
 
 export interface RacesDto {

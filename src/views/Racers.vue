@@ -13,7 +13,7 @@
             {{ season.name }} - Rennen {{ amountRaces(season) }}/{{ season.plannedRaces }}
           </div>
           <div class="text-subtitle-1">
-            {{ seasonDuration(season) }}
+            {{ season.duration() }}
           </div>
           <v-simple-table dense>
             <template v-slot:default>
@@ -54,13 +54,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { SeasonDto } from '@/types/Season';
+import { Season, SeasonDto } from '@/types/Season';
 
 @Component
 export default class Racers extends Vue {
-  get seasons(): SeasonDto[] {
+  get seasons(): Season[] {
     if (!this.$store.state.seasons) { return []; }
-    return Array.from(Object.values(this.$store.state.seasons));
+    return this.$store.state.seasons;
   }
 
   racerStats(seasonId: string) {
@@ -70,10 +70,6 @@ export default class Racers extends Vue {
   amountRaces(season: SeasonDto): number {
     if (!season?.races) { return 0; }
     return Object.keys(season.races).length;
-  }
-
-  seasonDuration(season: SeasonDto): string {
-    return `${season.start.toLocaleDateString('de')} - ${season.end.toLocaleDateString('de')}`;
   }
 }
 </script>

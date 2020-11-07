@@ -10,7 +10,7 @@
         {{ season.name }} - Rennen {{ amountRaces }}/{{ season.plannedRaces }}
       </div>
       <div class="text-subtitle-1">
-        {{ seasonDuration }}
+        {{ season.duration() }}
       </div>
       <result-table :results="results" />
     </v-container>
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { RacerResultDto, SeasonDto } from '@/types/Season';
+import { RacerResultDto, Season } from '@/types/Season';
 import ResultTable from '@/components/ResultTable.vue';
 
 @Component({
@@ -27,7 +27,7 @@ import ResultTable from '@/components/ResultTable.vue';
 })
 export default class SeasonResult extends Vue {
   @Prop()
-  season!: SeasonDto;
+  season!: Season;
 
   get finished(): boolean {
     if (!this.season?.races) { return false; }
@@ -42,10 +42,6 @@ export default class SeasonResult extends Vue {
   get amountRaces(): number {
     if (!this.season?.races) { return 0; }
     return Object.keys(this.season.races).length;
-  }
-
-  get seasonDuration(): string {
-    return `${this.season.start.toLocaleDateString('de')} - ${this.season.end.toLocaleDateString('de')}`;
   }
 }
 </script>

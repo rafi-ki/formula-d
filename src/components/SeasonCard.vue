@@ -9,9 +9,9 @@
       {{ season.name }}
     </v-card-title>
     <v-card-subtitle>
-      <span>{{ seasonDuration }}</span>
+      <span>{{ season.duration() }}</span>
       <v-chip
-        v-if="!seasonOver"
+        v-if="!season.isOver()"
         small
         color="success"
         class="ml-2"
@@ -33,6 +33,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
+        v-if="races.length > 0"
         @click="showRaces = !showRaces"
         text
       >
@@ -47,8 +48,8 @@
         <v-divider />
         <v-card-text>
           <div class="font-weight-bold ml-8 mb-2">
-            <span v-if="!seasonOver">Heute</span>
-            <span v-if="seasonOver">Ende</span>
+            <span v-if="!season.isOver()">Heute</span>
+            <span v-if="season.isOver()">Ende</span>
           </div>
           <v-timeline
             dense
@@ -84,12 +85,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { RaceDto, RacerResultDto, SeasonDto } from '@/types/Season';
+import {
+  RaceDto, RacerResultDto, Season,
+} from '@/types/Season';
 
 @Component
 export default class SeasonCard extends Vue {
   @Prop()
-  season!: SeasonDto;
+  season!: Season;
 
   showRaces = false;
 
@@ -100,10 +103,6 @@ export default class SeasonCard extends Vue {
 
   get commulated(): RacerResultDto[] {
     return this.$store.getters.getComulated(this.season.id);
-  }
-
-  get seasonDuration(): string {
-    return `${this.season.start.toLocaleDateString('de')} - ${this.season.end.toLocaleDateString('de')}`;
   }
 
   get races(): RaceDto[] {
@@ -125,13 +124,6 @@ export default class SeasonCard extends Vue {
       return race.results.find((x) => x.position === 1)?.racer;
     }
     return 'keiner';
-  }
-
-  get seasonOver(): boolean {
-    if (!this.season.races) {
-      return false;
-    }
-    return Object.keys(this.season.races).length === this.season.plannedRaces;
   }
 }
 </script>

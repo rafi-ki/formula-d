@@ -5,6 +5,12 @@
       color="primary"
       dark
     >
+      <div
+        @click="toHome"
+        class="mr-2"
+      >
+        <span class="text-h5">Formula D</span>
+      </div>
       <v-btn
         text
         @click="toHome"
