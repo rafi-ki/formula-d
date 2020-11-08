@@ -156,6 +156,9 @@ export default class ResultDialog extends Vue {
   }
 
   next() {
+    if (!this.result.racer) {
+      return;
+    }
     this.results.push(this.result);
     this.result = this.createEmptyResult();
   }
