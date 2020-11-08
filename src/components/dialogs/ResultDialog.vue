@@ -117,7 +117,7 @@ export default class ResultDialog extends Vue {
 
   result: RacerResultDto = this.createEmptyResult();
 
-  racers = ['Podo', 'Markus', 'Rafi', 'Georg', 'Thomas', 'Igor'];
+  racers = ['Podo', 'Markus', 'Rafi', 'Georg', 'Thomas', 'Igor', 'Roli'];
 
   positionItems = [
     { text: '1', value: 1 },
