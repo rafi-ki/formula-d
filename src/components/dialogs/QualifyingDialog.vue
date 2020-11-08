@@ -87,10 +87,8 @@ export default class QualifyingDialog extends Vue {
 
   done() {
     const racers = this.qualifying.split(',').map((x) => x.trim());
-    const updatedRace = this.race;
-    updatedRace.qualifying = racers;
-    const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${this.race.id}`);
-    raceRef.set(updatedRace).then(() => {
+    const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${this.race.id}/qualifying`);
+    raceRef.set(racers).then(() => {
       this.dialog = false;
       this.reset();
     });

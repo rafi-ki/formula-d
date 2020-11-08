@@ -131,6 +131,10 @@ export default class ResultDialog extends Vue {
 
   results: RacerResultDto[] = [];
 
+  mounted() {
+    this.results = this.race.results;
+  }
+
   get sortedResults() {
     return this.results.sort((a, b) => {
       if (a.position === 0) { return 1; }
@@ -157,14 +161,12 @@ export default class ResultDialog extends Vue {
   }
 
   reset() {
-    this.results = [];
+    this.results = this.race.results;
   }
 
   done() {
-    const newRace = this.race;
-    newRace.results = this.results;
-    const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${newRace.id}`);
-    raceRef.set(newRace).then(() => {
+    const resultsRef = firebase.database().ref(`seasons/${this.seasonId}/races/${this.race.id}/results`);
+    resultsRef.set(this.results).then(() => {
       this.dialog = false;
       this.reset();
     });
