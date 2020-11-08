@@ -132,7 +132,7 @@ export default class ResultDialog extends Vue {
   results: RacerResultDto[] = [];
 
   mounted() {
-    this.results = this.race.results;
+    this.results = this.race.results ? this.race.results : [];
   }
 
   get sortedResults() {
@@ -164,7 +164,7 @@ export default class ResultDialog extends Vue {
   }
 
   reset() {
-    this.results = this.race.results;
+    this.results = this.race.results ? this.race.results : [];
   }
 
   done() {

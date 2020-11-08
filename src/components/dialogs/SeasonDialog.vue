@@ -86,7 +86,7 @@ export default class SeasonDialog extends Vue {
 <style scoped>
 .fab {
   position: fixed;
-  right: 50px;
-  bottom: 50px;
+  right: 20px;
+  bottom: 20px;
 }
 </style>

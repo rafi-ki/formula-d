@@ -1,9 +1,22 @@
 <template>
   <v-dialog
     v-model="dialog"
-    @click:outside="cancel"
+    @click:outside="closeDialog"
     max-width="500"
   >
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn
+        class="ml-2 fab"
+        v-bind="attrs"
+        v-on="on"
+        fab
+        color="primary"
+      >
+        <v-icon>
+          mdi-plus
+        </v-icon>
+      </v-btn>
+    </template>
     <v-card>
       <v-card-title class="headline">
         Rennen
@@ -45,7 +58,7 @@
 
 <script lang="ts">
 import {
-  Component, Emit, Prop, Vue,
+  Component, Prop, Vue,
 } from 'vue-property-decorator';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
@@ -53,7 +66,6 @@ import { RaceDto } from '@/types/Season';
 
 @Component
 export default class RaceFormDialog extends Vue {
-  @Prop()
   dialog = false;
 
   @Prop()
@@ -67,11 +79,6 @@ export default class RaceFormDialog extends Vue {
   raceName = '';
 
   raceTrack = '';
-
-  @Emit()
-  closeDialog() {
-    // empty on purpose
-  }
 
   done() {
     const raceDto = {
@@ -88,12 +95,15 @@ export default class RaceFormDialog extends Vue {
     });
   }
 
-  cancel() {
-    this.closeDialog();
+  closeDialog() {
+    this.reset();
+    this.dialog = false;
   }
 
   reset() {
     this.raceDate = this.todayString();
+    this.raceName = '';
+    this.raceTrack = '';
   }
 
   todayString(): string {
@@ -103,5 +113,9 @@ export default class RaceFormDialog extends Vue {
 </script>
 
 <style scoped>
-
+.fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
 </style>

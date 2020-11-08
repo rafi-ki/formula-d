@@ -2,59 +2,14 @@
   <v-container v-if="!!races">
     <season-result :season="season" />
     <v-divider class="mt-5 mb-5" />
-    <v-expansion-panels multiple>
-      <v-expansion-panel
-        v-if="!finished"
-        readonly
-        dark
-      >
-        <v-expansion-panel-header
-          expand-icon="mdi-plus"
-          @click.stop="dialog = true"
-        >
-          Neues Rennen
-        </v-expansion-panel-header>
-      </v-expansion-panel>
-      <v-expansion-panel
-        v-for="race in races"
-        :key="race.order"
-      >
-        <v-expansion-panel-header>
-          <div class="text-h5">
-            <span class="mr-2">{{ race.order }}</span>
-            <span class="font-italic">"{{ race.name }}"</span>
-            <div class="text-subtitle-1">
-              {{ race.date }} @ {{ race.track }}
-            </div>
-          </div>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <qualifying
-            v-if="race.qualifying"
-            :qualifying="race.qualifying"
-          />
-          <race
-            v-if="race.results"
-            :race="race"
-          />
-          <div class="mt-5">
-            <qualifying-dialog
-              :season-id="$route.params.id"
-              :race="race"
-            />
-            <result-dialog
-              :season-id="$route.params.id"
-              :race="race"
-            />
-          </div>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+    <race-details
+      v-for="race in races"
+      :key="race.id"
+      :race="race"
+    />
     <race-form-dialog
-      :dialog="dialog"
       :season-id="$route.params.id"
       :last-order="lastOrder"
-      @close-dialog="dialog = false"
     />
   </v-container>
 </template>
@@ -68,6 +23,7 @@ import RaceFormDialog from '@/components/dialogs/RaceDialog.vue';
 import QualifyingDialog from '@/components/dialogs/QualifyingDialog.vue';
 import Qualifying from '@/components/Qualifying.vue';
 import ResultDialog from '@/components/dialogs/ResultDialog.vue';
+import RaceDetails from '@/components/RaceDetails.vue';
 
 @Component({
   components: {
@@ -77,13 +33,10 @@ import ResultDialog from '@/components/dialogs/ResultDialog.vue';
     RaceFormDialog,
     SeasonResult,
     Race,
+    RaceDetails,
   },
 })
 export default class Season extends Vue {
-  dialog = false;
-
-  resultDialog = false;
-
   get season(): SeasonDto {
     const { id } = this.$route.params;
     return this.$store.getters.getSeason(id);
