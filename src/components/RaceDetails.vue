@@ -13,16 +13,10 @@
       {{ race.name }}
     </v-card-title>
     <v-card-subtitle>
-      <v-chip
-        v-if="race.results"
-        small
-        outlined
-        class="mr-1"
-        color="success"
-      >
-        {{ winner }}
-      </v-chip>
-      {{ race.date }} @ {{ race.track }}
+      <podest :results="race.results" />
+      <div class="mt-1">
+        {{ race.date }} @ {{ race.track }}
+      </div>
     </v-card-subtitle>
     <v-card-actions>
       <qualifying-dialog
@@ -64,6 +58,7 @@ import Qualifying from '@/components/Qualifying.vue';
 import Race from '@/components/Race.vue';
 import QualifyingDialog from '@/components/dialogs/QualifyingDialog.vue';
 import ResultDialog from '@/components/dialogs/ResultDialog.vue';
+import Podest from '@/components/Podest.vue';
 
 @Component({
   components: {
@@ -71,6 +66,7 @@ import ResultDialog from '@/components/dialogs/ResultDialog.vue';
     Race,
     QualifyingDialog,
     ResultDialog,
+    Podest,
   },
 })
 export default class RaceDetails extends Vue {
@@ -78,13 +74,6 @@ export default class RaceDetails extends Vue {
   race!: RaceDto;
 
   expanded = false;
-
-  get winner() {
-    if (this.race.results) {
-      return this.race.results.find((x) => x.position === 1)?.racer;
-    }
-    return 'keiner';
-  }
 }
 </script>
 

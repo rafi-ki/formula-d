@@ -6,21 +6,24 @@
     outlined
   >
     <v-card-title>
-      {{ season.name }}
+      <v-badge
+        v-if="!season.isOver()"
+        inline
+        dot
+        color="green"
+        class="active-badge"
+      >
+        <div>
+          {{ season.name }}
+        </div>
+      </v-badge>
+      <div v-if="season.isOver()">
+        {{ season.name }}
+      </div>
     </v-card-title>
     <v-card-subtitle>
       <span>{{ season.duration() }}</span>
-      <v-chip
-        v-if="!season.isOver()"
-        small
-        color="success"
-        class="ml-2"
-      >
-        aktiv
-      </v-chip>
-      <div v-if="Podest">
-        Stand: {{ Podest }}
-      </div>
+      <podest :results="commulated" />
     </v-card-subtitle>
     <v-card-actions>
       <v-btn
@@ -62,16 +65,11 @@
             >
               <div class="font-weight-normal">
                 <strong>{{ race.name }}</strong>
+                <podest
+                  :results="race.results"
+                  :small="true"
+                />
                 <div>
-                  <v-chip
-                    v-if="race.results"
-                    x-small
-                    outlined
-                    class="mr-1"
-                    color="success"
-                  >
-                    {{ getWinner(race) }}
-                  </v-chip>
                   {{ race.date }} @ {{ race.track }}
                 </div>
               </div>
@@ -88,8 +86,13 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import {
   RaceDto, RacerResultDto, Season,
 } from '@/types/Season';
+import Podest from '@/components/Podest.vue';
 
-@Component
+@Component({
+  components: {
+    Podest,
+  },
+})
 export default class SeasonCard extends Vue {
   @Prop()
   season!: Season;
@@ -109,25 +112,11 @@ export default class SeasonCard extends Vue {
     if (!this.season.races) return [];
     return Object.values(this.season.races).sort((a, b) => b.order - a.order);
   }
-
-  get Podest(): string {
-    const { commulated } = this;
-    let podest = '';
-    if (commulated.length > 0) { podest = podest.concat(`1.${commulated[0].racer}`); }
-    if (commulated.length > 1) { podest = podest.concat(` | 2.${commulated[1].racer}`); }
-    if (commulated.length > 2) { podest = podest.concat(` | 3. ${commulated[2].racer}`); }
-    return podest;
-  }
-
-  getWinner(race: RaceDto) {
-    if (race.results) {
-      return race.results.find((x) => x.position === 1)?.racer;
-    }
-    return 'keiner';
-  }
 }
 </script>
 
 <style scoped>
-
+.active-badge {
+  line-height: 2rem;
+}
 </style>
