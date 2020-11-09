@@ -5,7 +5,7 @@
     max-width="500"
     outlined
   >
-    <v-card-title>
+    <v-card-title style="word-break: normal">
       <v-badge
         v-if="!season.isOver()"
         inline
