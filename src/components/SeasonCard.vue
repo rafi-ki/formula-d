@@ -4,20 +4,10 @@
     class="mx-auto mt-2"
     max-width="500"
     outlined
+    :raised="!season.isOver()"
   >
     <v-card-title style="word-break: normal">
-      <v-badge
-        v-if="!season.isOver()"
-        inline
-        dot
-        color="green"
-        class="active-badge"
-      >
-        <div>
-          {{ season.name }}
-        </div>
-      </v-badge>
-      <div v-if="season.isOver()">
+      <div>
         {{ season.name }}
       </div>
     </v-card-title>
