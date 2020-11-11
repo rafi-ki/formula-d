@@ -3,14 +3,14 @@
     class="elevation-2 mb-4 mx-auto"
     max-width="50em"
   >
-    <v-card-title>
+    <v-card-title class="race-card-title">
       <v-icon
-        class="primary rounded-circle mr-2"
-        dark
+        color="primary"
+        large
       >
         mdi-numeric-{{ race.order }}
       </v-icon>
-      {{ race.name }}
+      <span>{{ race.name }}</span>
     </v-card-title>
     <v-card-subtitle>
       <podest :results="race.results" />
@@ -78,5 +78,8 @@ export default class RaceDetails extends Vue {
 </script>
 
 <style scoped>
-
+.race-card-title {
+  display: block;
+  line-break: normal;
+}
 </style>
