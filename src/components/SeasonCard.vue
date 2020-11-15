@@ -20,9 +20,11 @@
         text
         @click="move"
         color="primary"
-        outlined
       >
-        Ansehen
+        <v-icon left>
+          mdi-flag-checkered
+        </v-icon>
+        Rennen
       </v-btn>
       <v-spacer />
       <v-btn
