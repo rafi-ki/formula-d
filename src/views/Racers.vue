@@ -1,75 +1,27 @@
 <template>
   <v-container>
+    <racer-stats-table />
     <div
       v-for="season in seasons"
       :key="season.id"
     >
-      <v-sheet
-        class="transition-swing mb-2"
-        outlined
-      >
-        <v-container>
-          <div class="text-h5">
-            {{ season.name }} - Rennen {{ amountRaces(season) }}/{{ season.plannedRaces }}
-          </div>
-          <div class="text-subtitle-1">
-            {{ season.duration() }}
-          </div>
-          <v-simple-table dense>
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left">
-                    Rennfahrer
-                  </th>
-                  <th class="text-left">
-                    Siege
-                  </th>
-                  <th class="text-left">
-                    Podestplätze
-                  </th>
-                  <th class="text-left">
-                    DNF
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="item in racerStats(season.id)"
-                  :key="item.racer"
-                >
-                  <td>{{ item.racer }} </td>
-                  <td>{{ item.wins }}</td>
-                  <td>{{ item.podests }}</td>
-                  <td>{{ item.dnf }}</td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </v-container>
-      </v-sheet>
+      <racer-stats-table :season="season" />
     </div>
   </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Season, SeasonDto } from '@/types/Season';
+import { Season } from '@/types/Season';
+import RacerStatsTable from '@/components/RacerStatsTable.vue';
 
-@Component
+@Component({
+  components: { RacerStatsTable },
+})
 export default class Racers extends Vue {
   get seasons(): Season[] {
     if (!this.$store.state.seasons) { return []; }
     return this.$store.state.seasons;
-  }
-
-  racerStats(seasonId: string) {
-    return this.$store.getters.getRacerStats(seasonId);
-  }
-
-  amountRaces(season: SeasonDto): number {
-    if (!season?.races) { return 0; }
-    return Object.keys(season.races).length;
   }
 }
 </script>

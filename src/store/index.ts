@@ -71,7 +71,31 @@ export default new Vuex.Store<ModuleState>({
       }));
     },
 
-    getRacerStats: (state) => (id: string) => {
+    getRacerStats: (state) => {
+      const results = state.seasons.flatMap((x) => Object.values(x.races))
+        .filter((x) => !!x.results).flatMap((x) => x.results);
+      const groupedByName = results.reduce((r: any, a) => {
+        // eslint-disable-next-line
+        r[a.racer] = [...r[a.racer] || [], a];
+        return r;
+      }, {});
+      return Object.keys(groupedByName).map((x) => {
+        const wins = groupedByName[x]
+          .filter((item: RacerResultDto) => item.position === 1).length;
+        const podests = groupedByName[x]
+          .filter((item: RacerResultDto) => isPodest(item)).length;
+        const dnf = groupedByName[x]
+          .filter((item: RacerResultDto) => item.position === 0).length;
+        return {
+          racer: x,
+          wins,
+          podests,
+          dnf,
+        };
+      }).sort((a, b) => b.wins - a.wins);
+    },
+
+    getRacerStatsForSeason: (state) => (id: string) => {
       const season = state.seasons.find((x) => x.id === id) as SeasonDto;
       if (!season?.races) { return []; }
       const seasonItems = Object.values(season.races)
