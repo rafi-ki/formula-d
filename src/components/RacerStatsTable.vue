@@ -17,37 +17,16 @@
           {{ season.duration() }}
         </div>
       </div>
-      <v-simple-table dense>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th class="text-left">
-                Rennfahrer
-              </th>
-              <th class="text-left">
-                Siege
-              </th>
-              <th class="text-left">
-                Podestplätze
-              </th>
-              <th class="text-left">
-                DNF
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="item in season ? racerStats(season.id) : racerStats(null)"
-              :key="item.racer"
-            >
-              <td>{{ item.racer }} </td>
-              <td>{{ item.wins }}</td>
-              <td>{{ item.podests }}</td>
-              <td>{{ item.dnf }}</td>
-            </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
+      <v-data-table
+        dense
+        :headers="headers"
+        :items="season ? racerStats(season.id) : racerStats(null)"
+        item-key="racer"
+        class="elevation-1"
+        hide-default-footer
+        mobile-breakpoint="0"
+        :options="options"
+      />
     </v-container>
   </v-sheet>
 </template>
@@ -73,6 +52,22 @@ import Podest from './Podest.vue';
 export default class RacerStatsTable extends Vue {
   @Prop()
   season!: SeasonDto;
+
+  headers = [
+    {
+      text: 'Rennfahrer',
+      align: 'start',
+      value: 'racer',
+    },
+    { text: 'Siege', value: 'wins' },
+    { text: 'Podestplätze', value: 'podests' },
+    { text: 'DNF', value: 'dnf' },
+  ];
+
+  options = {
+    sortBy: ['wins'],
+    sortDesc: [true],
+  };
 
   racerStats(seasonId: string) {
     if (seasonId) return this.$store.getters.getRacerStatsForSeason(seasonId);
