@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-sheet
     class="transition-swing mb-2"
     outlined
@@ -7,6 +7,9 @@
       <div v-if="!season">
         <div class="text-h5">
           Gesamtstatistik
+        </div>
+        <div class="text-subtitle-1">
+          Saisons: {{ stats.seasons }} | Rennen: {{ stats.races }}
         </div>
       </div>
       <div v-if="season">
@@ -20,12 +23,13 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="season ? racerStats(season.id) : racerStats(null)"
+        :items="season ? statsForSeason(season.id).racerStats : stats.racerStats"
         item-key="racer"
         class="elevation-1"
         hide-default-footer
         mobile-breakpoint="0"
         :options="options"
+        no-data-text="Keine Rennergebnisse bis jetzt"
       />
     </v-container>
   </v-sheet>
@@ -34,6 +38,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { SeasonDto } from '@/types/Season';
+import { Stats } from '@/types/Stats';
 import Qualifying from './Qualifying.vue';
 import Race from './Race.vue';
 import QualifyingDialog from './dialogs/QualifyingDialog.vue';
@@ -59,18 +64,22 @@ export default class RacerStatsTable extends Vue {
       align: 'start',
       value: 'racer',
     },
-    { text: 'Siege', value: 'wins' },
-    { text: 'Podestplätze', value: 'podests' },
-    { text: 'DNF', value: 'dnf' },
+    { text: 'Punkte', value: 'points', align: 'center' },
+    { text: 'Siege', value: 'wins', align: 'center' },
+    { text: 'Podestplätze', value: 'podests', align: 'center' },
+    { text: 'DNF', value: 'dnf', align: 'center' },
   ];
 
   options = {
-    sortBy: ['wins'],
+    sortBy: ['points'],
     sortDesc: [true],
   };
 
-  racerStats(seasonId: string) {
-    if (seasonId) return this.$store.getters.getRacerStatsForSeason(seasonId);
+  statsForSeason(seasonId: string): Stats {
+    return this.$store.getters.getRacerStatsForSeason(seasonId);
+  }
+
+  get stats(): Stats {
     return this.$store.getters.getRacerStats;
   }
 

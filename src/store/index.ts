@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import {
   RaceDto, RacerResultDto, Season, SeasonDto,
 } from '@/types/Season';
+import { Stats } from '@/types/Stats';
 
 function isPodest(item: RacerResultDto) {
   return item.position === 1 || item.position === 2 || item.position === 3;
@@ -72,53 +73,70 @@ export default new Vuex.Store<ModuleState>({
     },
 
     getRacerStats: (state) => {
-      const results = state.seasons.flatMap((x) => Object.values(x.races))
-        .filter((x) => !!x.results).flatMap((x) => x.results);
+      const races = state.seasons.flatMap((x) => Object.values(x.races))
+        .filter((x) => !!x.results);
+      const results = races.flatMap((x) => x.results);
       const groupedByName = results.reduce((r: any, a) => {
         // eslint-disable-next-line
         r[a.racer] = [...r[a.racer] || [], a];
         return r;
       }, {});
-      return Object.keys(groupedByName).map((x) => {
-        const wins = groupedByName[x]
-          .filter((item: RacerResultDto) => item.position === 1).length;
-        const podests = groupedByName[x]
-          .filter((item: RacerResultDto) => isPodest(item)).length;
-        const dnf = groupedByName[x]
-          .filter((item: RacerResultDto) => item.position === 0).length;
-        return {
-          racer: x,
-          wins,
-          podests,
-          dnf,
-        };
-      }).sort((a, b) => b.wins - a.wins);
+      return {
+        seasons: state.seasons.length,
+        races: races.length,
+        racers: Object.keys(groupedByName),
+        racerStats: Object.keys(groupedByName).map((x) => {
+          const wins = groupedByName[x]
+            .filter((item: RacerResultDto) => item.position === 1).length;
+          const podests = groupedByName[x]
+            .filter((item: RacerResultDto) => isPodest(item)).length;
+          const dnf = groupedByName[x]
+            .filter((item: RacerResultDto) => item.position === 0).length;
+          const points = groupedByName[x].map((y: RacerResultDto) => y.points)
+            .reduce((a: number, b: number) => a + b, 0);
+          return {
+            racer: x,
+            points,
+            wins,
+            podests,
+            dnf,
+          };
+        }).sort((a, b) => b.wins - a.wins),
+      } as Stats;
     },
 
     getRacerStatsForSeason: (state) => (id: string) => {
       const season = state.seasons.find((x) => x.id === id) as SeasonDto;
-      if (!season?.races) { return []; }
-      const seasonItems = Object.values(season.races)
-        .filter((x) => !!x.results).flatMap((x) => x.results);
+      if (!season?.races) { return null; }
+      const races = Object.values(season.races).filter((x) => !!x.results);
+      const seasonItems = races.filter((x) => !!x.results).flatMap((x) => x.results);
       const groupedByName = seasonItems.reduce((r: any, a) => {
         // eslint-disable-next-line
         r[a.racer] = [...r[a.racer] || [], a];
         return r;
       }, {});
-      return Object.keys(groupedByName).map((x) => {
-        const wins = groupedByName[x]
-          .filter((item: RacerResultDto) => item.position === 1).length;
-        const podests = groupedByName[x]
-          .filter((item: RacerResultDto) => isPodest(item)).length;
-        const dnf = groupedByName[x]
-          .filter((item: RacerResultDto) => item.position === 0).length;
-        return {
-          racer: x,
-          wins,
-          podests,
-          dnf,
-        };
-      }).sort((a, b) => b.wins - a.wins);
+      return {
+        seasons: 1,
+        races: races.length,
+        racers: Object.keys(groupedByName),
+        racerStats: Object.keys(groupedByName).map((x) => {
+          const wins = groupedByName[x]
+            .filter((item: RacerResultDto) => item.position === 1).length;
+          const podests = groupedByName[x]
+            .filter((item: RacerResultDto) => isPodest(item)).length;
+          const dnf = groupedByName[x]
+            .filter((item: RacerResultDto) => item.position === 0).length;
+          const points = groupedByName[x].map((y: RacerResultDto) => y.points)
+            .reduce((a: number, b: number) => a + b, 0);
+          return {
+            racer: x,
+            points,
+            wins,
+            podests,
+            dnf,
+          };
+        }).sort((a, b) => b.wins - a.wins),
+      } as Stats;
     },
   },
   actions: {},
