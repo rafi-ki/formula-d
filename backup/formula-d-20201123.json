@@ -14,72 +14,6 @@
         }
       }
     },
-    "-MLbfn8sydnVr5rqCBFn" : {
-      "name" : "Test this Season",
-      "plannedRaces" : "4",
-      "races" : {
-        "-MLbfqL6_RhnDrUxJPX0" : {
-          "date" : "2002-11-08",
-          "id" : "-MLbfqL6_RhnDrUxJPX0",
-          "name" : "Rennen 1",
-          "order" : 1,
-          "qualifying" : [ "Igor", "Markus", "Rafi", "Podo" ],
-          "results" : [ {
-            "points" : 0,
-            "position" : 1,
-            "racer" : "Rafi"
-          }, {
-            "points" : 0,
-            "position" : 2,
-            "racer" : "Markus"
-          }, {
-            "points" : 0,
-            "position" : 3,
-            "racer" : "Podo"
-          }, {
-            "points" : 4,
-            "position" : 4,
-            "racer" : "Georg"
-          } ],
-          "track" : "Strecke 1"
-        },
-        "-MLdVt_rJuWq7TT4oSSd" : {
-          "date" : "2020-11-08",
-          "id" : "-MLdVt_rJuWq7TT4oSSd",
-          "name" : "Rennen 2",
-          "order" : 2,
-          "track" : "S 2"
-        },
-        "-MLdXzERNoHsfsjrfcYB" : {
-          "date" : "2020-11-08",
-          "id" : "-MLdXzERNoHsfsjrfcYB",
-          "name" : "Rennen 3",
-          "order" : 3,
-          "qualifying" : [ "Podo", "Rafi", "Markus" ],
-          "results" : [ {
-            "points" : 11,
-            "position" : 1,
-            "racer" : "Markus"
-          }, {
-            "points" : 7,
-            "position" : 2,
-            "racer" : "Rafi"
-          }, {
-            "points" : 4,
-            "position" : 3,
-            "racer" : "Podo"
-          } ],
-          "track" : "Hawaii"
-        },
-        "-MMCU2GxYwdZNYSy7Gih" : {
-          "date" : "2020-11-15",
-          "id" : "-MMCU2GxYwdZNYSy7Gih",
-          "name" : "rennen mit wirklich, wirklich extrem langem titel",
-          "order" : 4,
-          "track" : "Wuhuu"
-        }
-      }
-    },
     "266441B9-9F08-4A1C-A04B-C1B6691C8519" : {
       "name" : "Corona Season",
       "plannedRaces" : 5,
@@ -321,7 +255,7 @@
             "position" : 0,
             "racer" : "Podo"
           } ],
-          "track" : "unbekannt"
+          "track" : "Singapur"
         }
       }
     },
@@ -387,7 +321,7 @@
             "position" : 0,
             "racer" : "Podo"
           } ],
-          "track" : "unbekannt"
+          "track" : "Singapur"
         },
         "-MMlQZVhQyXAKzk8_HyL" : {
           "date" : "2020-03-15",
@@ -415,10 +349,10 @@
             "position" : 0,
             "racer" : "Thomas"
           } ],
-          "track" : "unbekannt"
+          "track" : "Baltimore"
         },
         "-MMlQrodxv4t6qfKELCP" : {
-          "date" : "2018-05-04",
+          "date" : "2018-04-05",
           "id" : "-MMlQrodxv4t6qfKELCP",
           "name" : "Untitled",
           "order" : 3,
@@ -447,7 +381,7 @@
             "position" : 0,
             "racer" : "Igor"
           } ],
-          "track" : "unbekannt"
+          "track" : "New Jersey"
         },
         "24B2FB03-3FC2-49F2-87F7-E329BC6F71CC" : {
           "date" : "2018-06-08",
