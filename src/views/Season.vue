@@ -9,7 +9,7 @@
     />
     <race-form-dialog
       :season-id="$route.params.id"
-      :last-order="lastOrder"
+      :order="lastOrder + 1"
     />
   </v-container>
 </template>
@@ -18,18 +18,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Race from '@/components/Race.vue';
 import { RaceDto, SeasonDto } from '@/types/Season';
-import SeasonResult from '@/components/SeasonResult.vue';
 import RaceFormDialog from '@/components/dialogs/RaceDialog.vue';
-import QualifyingDialog from '@/components/dialogs/QualifyingDialog.vue';
-import Qualifying from '@/components/Qualifying.vue';
-import ResultDialog from '@/components/dialogs/ResultDialog.vue';
 import RaceDetails from '@/components/RaceDetails.vue';
+import SeasonResult from '@/components/SeasonResult.vue';
 
 @Component({
   components: {
-    ResultDialog,
-    Qualifying,
-    QualifyingDialog,
     RaceFormDialog,
     SeasonResult,
     Race,

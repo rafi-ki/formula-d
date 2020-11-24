@@ -19,17 +19,12 @@
       </div>
     </v-card-subtitle>
     <v-card-actions>
-      <qualifying-dialog
-        :season-id="$route.params.id"
-        :race="race"
-      />
-      <result-dialog
+      <race-dialog
         :season-id="$route.params.id"
         :race="race"
       />
       <v-spacer />
       <v-btn
-        v-if="race.qualifying || race.results"
         icon
         @click="expanded = !expanded"
       >
@@ -37,16 +32,18 @@
       </v-btn>
     </v-card-actions>
     <v-expand-transition>
-      <v-card-text v-show="expanded">
-        <qualifying
-          v-if="race.qualifying"
-          :qualifying="race.qualifying"
-        />
-        <race
-          v-if="race.results"
-          :race="race"
-        />
-      </v-card-text>
+      <div v-show="expanded">
+        <v-divider />
+        <v-card-text>
+          <qualifying
+            :qualifying="race.qualifying"
+            :race="race"
+          />
+          <race
+            :race="race"
+          />
+        </v-card-text>
+      </div>
     </v-expand-transition>
   </v-card>
 </template>
@@ -59,9 +56,11 @@ import Race from '@/components/Race.vue';
 import QualifyingDialog from '@/components/dialogs/QualifyingDialog.vue';
 import ResultDialog from '@/components/dialogs/ResultDialog.vue';
 import Podest from '@/components/Podest.vue';
+import RaceDialog from '@/components/dialogs/RaceDialog.vue';
 
 @Component({
   components: {
+    RaceDialog,
     Qualifying,
     Race,
     QualifyingDialog,

@@ -9,22 +9,18 @@
         class="ml-2"
         v-bind="attrs"
         v-on="on"
-        outlined
-        text
+        icon
       >
         <v-icon
           v-if="hasQualifying"
-          left
         >
           mdi-pencil
         </v-icon>
         <v-icon
           v-if="!hasQualifying"
-          left
         >
           mdi-plus
         </v-icon>
-        Qualifying
       </v-btn>
     </template>
     <v-card>

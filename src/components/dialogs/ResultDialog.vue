@@ -9,22 +9,18 @@
         v-on="on"
         v-bind="attrs"
         class="mx-1"
-        outlined
-        text
+        icon
       >
         <v-icon
-          left
           v-if="hasResult"
         >
           mdi-pencil
         </v-icon>
         <v-icon
-          left
           v-if="!hasResult"
         >
           mdi-plus
         </v-icon>
-        Ergebnis
       </v-btn>
     </template>
     <v-card>

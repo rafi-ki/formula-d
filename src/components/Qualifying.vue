@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="subtitle-1">
-      Qualifying
+      <span>Qualifying</span>
+      <qualifying-dialog
+        :season-id="$route.params.id"
+        :race="race"
+      />
     </div>
     <v-chip
       v-for="(racer, index) in qualifying"
@@ -22,11 +26,20 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import QualifyingDialog from '@/components/dialogs/QualifyingDialog.vue';
+import { RaceDto } from '@/types/Season';
 
-@Component
+@Component({
+  components: {
+    QualifyingDialog,
+  },
+})
 export default class Qualifying extends Vue {
   @Prop()
   qualifying!: string[];
+
+  @Prop()
+  race!: RaceDto;
 
   isPodest(index: number): boolean {
     return index === 0 || index === 1 || index === 2;

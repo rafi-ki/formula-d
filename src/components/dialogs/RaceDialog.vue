@@ -6,6 +6,7 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
+        v-if="!race"
         class="ml-2 fab"
         v-bind="attrs"
         v-on="on"
@@ -14,6 +15,17 @@
       >
         <v-icon>
           mdi-plus
+        </v-icon>
+      </v-btn>
+      <v-btn
+        v-if="race"
+        class="ml-2"
+        v-bind="attrs"
+        v-on="on"
+        icon
+      >
+        <v-icon>
+          mdi-pencil
         </v-icon>
       </v-btn>
     </template>
@@ -72,27 +84,42 @@ export default class RaceFormDialog extends Vue {
   seasonId!: string;
 
   @Prop()
-  lastOrder!: number;
+  race!: RaceDto;
 
-  raceDate = this.todayString();
+  @Prop()
+  order!: number;
+
+  raceDate = '';
 
   raceName = '';
 
   raceTrack = '';
+
+  mounted() {
+    this.reset();
+  }
 
   done() {
     const raceDto = {
       name: this.raceName,
       track: this.raceTrack,
       date: this.raceDate,
-      order: this.lastOrder + 1,
+      order: this.race ? this.race.order : this.order,
     } as RaceDto;
-    const raceId = firebase.database().ref(`seasons/${this.seasonId}/races`).push(raceDto).key;
-    if (raceId) { raceDto.id = raceId; }
-    const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${raceDto.id}`);
-    raceRef.set(raceDto).then(() => {
-      this.closeDialog();
-    });
+    if (this.race) {
+      raceDto.id = this.race.id;
+      firebase.database().ref(`seasons/${this.seasonId}/races/${this.race.id}`)
+        .set(raceDto).then(() => {
+          this.closeDialog();
+        });
+    } else {
+      const raceId = firebase.database().ref(`seasons/${this.seasonId}/races`).push(raceDto).key;
+      if (raceId) { raceDto.id = raceId; }
+      const raceRef = firebase.database().ref(`seasons/${this.seasonId}/races/${raceDto.id}`);
+      raceRef.set(raceDto).then(() => {
+        this.closeDialog();
+      });
+    }
   }
 
   closeDialog() {
@@ -101,9 +128,9 @@ export default class RaceFormDialog extends Vue {
   }
 
   reset() {
-    this.raceDate = this.todayString();
-    this.raceName = '';
-    this.raceTrack = '';
+    this.raceDate = this.race ? this.race.date : this.todayString();
+    this.raceName = this.race ? this.race.name : '';
+    this.raceTrack = this.race ? this.race.track : '';
   }
 
   todayString(): string {
