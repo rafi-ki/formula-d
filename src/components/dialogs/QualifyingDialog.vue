@@ -11,15 +11,8 @@
         v-on="on"
         icon
       >
-        <v-icon
-          v-if="hasQualifying"
-        >
-          mdi-pencil
-        </v-icon>
-        <v-icon
-          v-if="!hasQualifying"
-        >
-          mdi-plus
+        <v-icon>
+          {{ hasQualifying ? 'mdi-pencil' : 'mdi-plus' }}
         </v-icon>
       </v-btn>
     </template>

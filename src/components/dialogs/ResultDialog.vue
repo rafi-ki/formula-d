@@ -11,15 +11,8 @@
         class="mx-1"
         icon
       >
-        <v-icon
-          v-if="hasResult"
-        >
-          mdi-pencil
-        </v-icon>
-        <v-icon
-          v-if="!hasResult"
-        >
-          mdi-plus
+        <v-icon>
+          {{ hasResult ? 'mdi-pencil' : 'mdi-plus' }}
         </v-icon>
       </v-btn>
     </template>
