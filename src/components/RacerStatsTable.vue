@@ -29,7 +29,7 @@
         hide-default-footer
         mobile-breakpoint="0"
         :options="options"
-        no-data-text="Keine Rennergebnisse bis jetzt"
+        no-data-text="Keine Rennergebnisse"
       />
     </v-container>
   </v-sheet>
