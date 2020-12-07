@@ -22,7 +22,7 @@
       </div>
       <v-data-table
         dense
-        :headers="headers"
+        :headers="season ? headers : overallHeaders"
         :items="season ? statsForSeason(season.id).racerStats : stats.racerStats"
         item-key="racer"
         class="elevation-1"
@@ -64,6 +64,19 @@ export default class RacerStatsTable extends Vue {
       align: 'start',
       value: 'racer',
     },
+    { text: 'Punkte', value: 'points', align: 'center' },
+    { text: 'Siege', value: 'wins', align: 'center' },
+    { text: 'Podestplätze', value: 'podests', align: 'center' },
+    { text: 'DNF', value: 'dnf', align: 'center' },
+  ];
+
+  overallHeaders = [
+    {
+      text: 'Rennfahrer',
+      align: 'start',
+      value: 'racer',
+    },
+    { text: 'Titel', value: 'titels', align: 'center' },
     { text: 'Punkte', value: 'points', align: 'center' },
     { text: 'Siege', value: 'wins', align: 'center' },
     { text: 'Podestplätze', value: 'podests', align: 'center' },

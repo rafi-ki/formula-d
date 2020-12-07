@@ -5,6 +5,7 @@ export interface SeasonDto {
     end?: Date;
     plannedRaces: number;
     races: RacesDto;
+    champion: string;
 }
 
 export class Season implements SeasonDto {
@@ -20,6 +21,8 @@ export class Season implements SeasonDto {
 
   start?: Date;
 
+  champion: string;
+
   constructor(s: SeasonDto) {
     this.id = s.id;
     this.name = s.name;
@@ -27,6 +30,7 @@ export class Season implements SeasonDto {
     this.races = s.races;
     this.end = s.end;
     this.start = s.start;
+    this.champion = s.champion;
   }
 
   duration(): string {

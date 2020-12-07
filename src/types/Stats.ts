@@ -4,6 +4,7 @@ export interface RacerStat {
     wins: number;
     podests: number;
     dnf: number;
+    titels: number;
 }
 
 export interface Stats {

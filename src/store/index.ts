@@ -73,6 +73,8 @@ export default new Vuex.Store<ModuleState>({
     },
 
     getRacerStats: (state) => {
+      const { seasons } = state;
+      const champions = seasons.map((x) => x.champion);
       const races = state.seasons.flatMap((x) => Object.values(x.races))
         .filter((x) => !!x.results);
       const results = races.flatMap((x) => x.results);
@@ -100,6 +102,7 @@ export default new Vuex.Store<ModuleState>({
             wins,
             podests,
             dnf,
+            titels: champions.filter((y) => x === y).length,
           };
         }).sort((a, b) => b.wins - a.wins),
       } as Stats;
