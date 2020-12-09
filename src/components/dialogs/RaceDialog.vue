@@ -108,6 +108,12 @@ export default class RaceFormDialog extends Vue {
     } as RaceDto;
     if (this.race) {
       raceDto.id = this.race.id;
+      if (this.race.qualifying) {
+        raceDto.qualifying = this.race.qualifying;
+      }
+      if (this.race.results) {
+        raceDto.results = this.race.results;
+      }
       firebase.database().ref(`seasons/${this.seasonId}/races/${this.race.id}`)
         .set(raceDto).then(() => {
           this.closeDialog();
