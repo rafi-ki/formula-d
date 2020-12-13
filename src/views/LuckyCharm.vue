@@ -51,7 +51,8 @@ export default class LuckyCharm extends Vue {
     return sortedSeasons[sortedSeasons.length - 1];
   }
 
-  mapFactorLuck(race: RaceDto): FactorLuck {
+  mapFactorLuck(race: RaceDto): FactorLuck[] {
+    if (!race.qualifying) { return []; }
     const racersCount = race.qualifying.length;
     return race.qualifying.map((y, i) => ({
       racer: y,
@@ -73,7 +74,7 @@ export default class LuckyCharm extends Vue {
     }, []);
     const racers = Object.keys(groupedByName);
     return racers.map((racer: string) => {
-      const factor = groupedByName[racer].reduce((a, b) => a + b, 0);
+      const factor = groupedByName[racer].reduce((a: number, b: number) => a + b, 0);
       return {
         racer,
         factor,
