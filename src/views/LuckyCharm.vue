@@ -61,7 +61,9 @@ export default class LuckyCharm extends Vue {
 
   get factorLuck(): FactorLuck[] {
     const season = this.latestSeason;
-    const races = Object.values(season.races).filter((x) => x.qualifying);
+    const races = Object.values(season.races)
+      .filter((x) => x.order !== 1)
+      .filter((x) => x.qualifying);
     const factorsLuck = races.flatMap(this.mapFactorLuck);
     console.log(factorsLuck);
     const groupedByName = factorsLuck.reduce((r: any, a: FactorLuck) => {
