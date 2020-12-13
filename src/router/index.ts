@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router';
 import Seasons from '@/views/Seasons.vue';
 import Season from '@/views/Season.vue';
 import Racers from '@/views/Racers.vue';
+import LuckyCharm from '@/views/LuckyCharm.vue';
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,11 @@ const routes: Array<RouteConfig> = [
     path: '/racers',
     name: 'Racers',
     component: Racers,
+  },
+  {
+    path: '/luckycharm',
+    name: 'LuckyCharm',
+    component: LuckyCharm,
   },
   {
     path: '/season/:id',

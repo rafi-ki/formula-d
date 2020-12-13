@@ -70,3 +70,8 @@ export interface RacerResultDto {
     position: number;
     points: number;
 }
+
+export interface FactorLuck {
+  racer: string;
+  factor: number;
+}

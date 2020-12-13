@@ -23,6 +23,12 @@
       >
         <v-icon>mdi-racing-helmet</v-icon>
       </v-btn>
+      <v-btn
+        text
+        @click="toLuckyCharm"
+      >
+        <v-icon>mdi-clover</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -54,6 +60,10 @@ export default class App extends Vue {
 
   toRacers() {
     this.$router.push('/racers');
+  }
+
+  toLuckyCharm() {
+    this.$router.push('/luckycharm');
   }
 }
 </script>
