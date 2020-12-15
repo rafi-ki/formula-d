@@ -9,6 +9,13 @@ function isPodest(item: RacerResultDto) {
   return item.position === 1 || item.position === 2 || item.position === 3;
 }
 
+function compareStart(a: Season, b: Season): number {
+  if (a.start && b.start) {
+    return a.start.getTime() - b.start.getTime();
+  }
+  return -1;
+}
+
 Vue.use(Vuex);
 
 export interface ModuleState {
@@ -47,6 +54,11 @@ export default new Vuex.Store<ModuleState>({
   },
   getters: {
     getSeason: (state) => (id: string) => state.seasons.find((x) => x.id === id) as SeasonDto,
+
+    getLatestSeason: (state) => {
+      const sortedSeasons = [...state.seasons].sort(compareStart);
+      return sortedSeasons[sortedSeasons.length - 1] as Season;
+    },
 
     getComulated: (state) => (id: string) => {
       const season = state.seasons.find((x) => x.id === id) as SeasonDto;

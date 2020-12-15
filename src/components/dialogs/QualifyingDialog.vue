@@ -29,8 +29,6 @@
               persistent-hint
               label="Beispiel: Podo, Markus, ..."
               clearable
-              prepend-inner-icon="mdi-shuffle"
-              @click:prepend-inner="shuffle"
             />
           </v-col>
         </v-row>
@@ -83,21 +81,6 @@ export default class QualifyingDialog extends Vue {
       this.dialog = false;
       this.reset();
     });
-  }
-
-  shuffle() {
-    const racers = this.qualifying.split(',').map((x) => x.trim());
-    this.shuffleArray(racers);
-    this.qualifying = racers.toString();
-  }
-
-  shuffleArray(array: string[]) {
-    // eslint-disable-next-line no-plusplus
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      // eslint-disable-next-line no-param-reassign
-      [array[i], array[j]] = [array[j], array[i]];
-    }
   }
 }
 </script>
