@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-container>
     <div>
       <v-btn
@@ -43,7 +43,7 @@ import { Season } from '@/types/Season';
 
 @Component
 export default class QualifyingRollout extends Vue {
-  result = [];
+  result: any[] = [];
 
   mounted() {
     this.shuffle();
