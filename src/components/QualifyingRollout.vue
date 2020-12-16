@@ -7,43 +7,28 @@
         outlined
         color="primary"
       >
-        <v-icon
-          left
-          dark
-        >
-          mdi-traffic-light
-        </v-icon>
         Start
       </v-btn>
     </div>
-    <div
+    <qualifier-card
       v-for="(racer, index) in result"
       :key="index"
-    >
-      <v-chip
-        v-show="racer.show"
-        large
-        class="ma-1"
-        :color="index===0 ? 'success' : ''"
-      >
-        <v-avatar
-          left
-        >
-          {{ index + 1 }}.
-        </v-avatar>
-        {{ racer.racer }}
-      </v-chip>
-    </div>
+      :qualifier="racer"
+      :position="index+1"
+    />
   </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Season } from '@/types/Season';
+import { FactorLuck, Qualifier, Season } from '@/types/Season';
+import QualifierCard from '@/components/QualifierCard.vue';
 
-@Component
+@Component({
+  components: { QualifierCard },
+})
 export default class QualifyingRollout extends Vue {
-  result: any[] = [];
+  result: Qualifier[] = [];
 
   mounted() {
     this.shuffle();
@@ -52,9 +37,25 @@ export default class QualifyingRollout extends Vue {
   shuffle() {
     const qualiRacers = [...this.racers];
     this.shuffleArray(qualiRacers);
-    const qualiResult = qualiRacers.map((x, i) => ({ racer: x, position: (i + 1), show: false }));
-    qualiResult.sort((a, b) => a.position - b.position);
+    const qualiResult = qualiRacers
+      .map((x, i) => (
+        {
+          racer: x,
+          dicedPosition: (i + 1),
+          finished: false,
+          factorLuck: 0,
+        } as Qualifier
+      ));
+    qualiResult.sort((a, b) => a.dicedPosition - b.dicedPosition);
     this.result = qualiResult;
+  }
+
+  addFactorLuck() {
+    const factorLuck = this.$store.getters.getFactorLuck(this.latestSeason.id) as FactorLuck[];
+    this.result = this.result.map((r) => {
+      const { factor } = factorLuck.find((x) => x.racer === r.racer) as FactorLuck;
+      return { ...r, factorLuck: factor, sum: factor + r.dicedPosition } as Qualifier;
+    });
   }
 
   shuffleArray(array: string[]) {
@@ -68,9 +69,12 @@ export default class QualifyingRollout extends Vue {
 
   startQualifying() {
     this.shuffle();
-    this.result.forEach((x) => {
+    this.addFactorLuck();
+    this.result.sort((a, b) => a.sum - b.sum);
+    const racersCount = this.racers.length;
+    this.result.forEach((x, index) => {
       // eslint-disable-next-line no-return-assign,no-param-reassign
-      setTimeout(() => x.show = true, 2000 * x.position);
+      setTimeout(() => x.finished = true, 4000 * (racersCount + 1 - index));
     });
   }
 

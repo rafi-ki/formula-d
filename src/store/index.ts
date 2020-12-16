@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {
+  FactorLuck,
   RaceDto, RacerResultDto, Season, SeasonDto,
 } from '@/types/Season';
 import { Stats } from '@/types/Stats';
@@ -14,6 +15,15 @@ function compareStart(a: Season, b: Season): number {
     return a.start.getTime() - b.start.getTime();
   }
   return -1;
+}
+
+function mapFactorLuck(race: RaceDto): FactorLuck[] {
+  if (!race.qualifying) { return []; }
+  const racersCount = race.qualifying.length;
+  return race.qualifying.map((y, i) => ({
+    racer: y,
+    factor: (racersCount / 2) + 0.5 - (i + 1),
+  }));
 }
 
 Vue.use(Vuex);
@@ -53,11 +63,32 @@ export default new Vuex.Store<ModuleState>({
     },
   },
   getters: {
-    getSeason: (state) => (id: string) => state.seasons.find((x) => x.id === id) as SeasonDto,
+    getSeason: (state) => (id: string): Season => state.seasons.find((x) => x.id === id) as Season,
 
-    getLatestSeason: (state) => {
+    getLatestSeason: (state): Season => {
       const sortedSeasons = [...state.seasons].sort(compareStart);
       return sortedSeasons[sortedSeasons.length - 1] as Season;
+    },
+
+    getFactorLuck: (state, getters) => (seasonId: string) => {
+      const season = getters.getSeason(seasonId) as Season;
+      const races = Object.values(season.races)
+        .filter((x) => x.order !== 1)
+        .filter((x) => x.qualifying);
+      const factorsLuck = races.flatMap(mapFactorLuck);
+      const groupedByName = factorsLuck.reduce((r: any, a: FactorLuck) => {
+        // eslint-disable-next-line
+        r[a.racer] = [...r[a.racer] || [], a.factor];
+        return r;
+      }, []);
+      const racers = Object.keys(groupedByName);
+      return racers.map((racer: string) => {
+        const factor = groupedByName[racer].reduce((a: number, b: number) => a + b, 0);
+        return {
+          racer,
+          factor,
+        };
+      }) as FactorLuck[];
     },
 
     getComulated: (state) => (id: string) => {

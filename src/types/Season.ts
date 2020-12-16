@@ -75,3 +75,11 @@ export interface FactorLuck {
   racer: string;
   factor: number;
 }
+
+export interface Qualifier {
+  racer: string;
+  sum: number;
+  dicedPosition: number;
+  factorLuck: number;
+  finished: boolean;
+}
