@@ -1,41 +1,54 @@
 <template>
   <v-container v-if="this.$store.state.seasons.length > 0">
     <div class="text-h5">
-      Qualifying
-    </div>
-    <div class="subtitle-1">
       {{ latestSeason.name }} <br>
     </div>
-    <QualifyingRollout />
-    <div class="text-h5">
-      Glücksfaktor: Das Unfassbare
-    </div>
-    <div class="subtitle-1">
-      Nach {{ Object.keys(latestSeason.races).length }} von {{ latestSeason.plannedRaces }} Rennen
-    </div>
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th class="text-left">
-              Rennfahrer
-            </th>
-            <th class="text-left">
-              Glücksfaktor
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="item in factorLuck"
-            :key="item.racer"
-          >
-            <td>{{ item.racer }}</td>
-            <td>{{ item.factor }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
+    <v-subheader>Aktuelle Saison</v-subheader>
+    <v-tabs
+      v-model="tab"
+    >
+      <v-tab>Qualifying</v-tab>
+      <v-tab>Glücksfaktor</v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="tab">
+      <v-tab-item>
+        <QualifyingRollout />
+      </v-tab-item>
+      <v-tab-item>
+        <v-container>
+          <div class="text-h6">
+            Glücksfaktor: Das Unfassbare
+          </div>
+          <v-subheader>
+            Nach {{ Object.keys(latestSeason.races).length }}
+            von {{ latestSeason.plannedRaces }} Rennen
+          </v-subheader>
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">
+                    Rennfahrer
+                  </th>
+                  <th class="text-left">
+                    Glücksfaktor
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="item in factorLuck"
+                  :key="item.racer"
+                >
+                  <td>{{ item.racer }}</td>
+                  <td>{{ item.factor }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </v-container>
+      </v-tab-item>
+    </v-tabs-items>
   </v-container>
 </template>
 
@@ -48,6 +61,8 @@ import QualifyingRollout from '@/components/QualifyingRollout.vue';
   components: { QualifyingRollout },
 })
 export default class LuckyCharm extends Vue {
+  tab = null;
+
   mapFactorLuck(race: RaceDto): FactorLuck[] {
     if (!race.qualifying) { return []; }
     const racersCount = race.qualifying.length;
