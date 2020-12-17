@@ -1,7 +1,11 @@
 <template>
   <v-container>
     <div>
+      <div v-if="!latestRace.qualifying">
+        Kein Qualifying offen
+      </div>
       <v-btn
+        v-if="latestRace.qualifying"
         class="ma-2"
         @click="startQualifying"
         outlined
@@ -21,7 +25,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { FactorLuck, Qualifier, Season } from '@/types/Season';
+import {
+  FactorLuck, Qualifier, RaceDto, Season,
+} from '@/types/Season';
 import QualifierCard from '@/components/QualifierCard.vue';
 
 @Component({
@@ -43,27 +49,19 @@ export default class QualifyingRollout extends Vue {
   shuffle() {
     const qualiRacers = [...this.racers];
     this.shuffleArray(qualiRacers);
-    const qualiResult = qualiRacers
-      .map((x, i) => (
-        {
-          racer: x,
-          dicedPosition: (i + 1),
-          finished: false,
-          factorLuck: 0,
-        } as Qualifier
-      ));
-    qualiResult.sort(
-      (a, b) => this.cmp(a.dicedPosition, b.dicedPosition),
-    );
-    this.result = qualiResult;
-  }
-
-  addFactorLuck() {
     const factorLuck = this.$store.getters.getFactorLuck(this.latestSeason.id) as FactorLuck[];
-    this.result = this.result.map((r) => {
-      const { factor } = factorLuck.find((x) => x.racer === r.racer) as FactorLuck;
-      return { ...r, factorLuck: factor, sum: factor + r.dicedPosition } as Qualifier;
-    });
+    this.result = qualiRacers
+      .map((racer, i) => {
+        const { factor } = factorLuck.find((luck) => luck.racer === racer) as FactorLuck;
+        const dicedPosition = (i + 1);
+        return {
+          racer,
+          dicedPosition,
+          finished: false,
+          factorLuck: factor,
+          sum: factor + dicedPosition,
+        } as Qualifier;
+      });
   }
 
   shuffleArray(array: string[]) {
@@ -77,8 +75,7 @@ export default class QualifyingRollout extends Vue {
 
   startQualifying() {
     this.shuffle();
-    this.addFactorLuck();
-    this.result.sort((a, b) => this.cmp(a.sum, b.sum) || this.cmp(b.factorLuck, a.factorLuck));
+    this.result.sort((a, b) => this.cmp(a.sum, b.sum) || this.cmp(a.factorLuck, b.factorLuck));
     const racersCount = this.racers.length;
     this.result.forEach((x, index) => {
       const delay = (racersCount - index);
@@ -89,6 +86,14 @@ export default class QualifyingRollout extends Vue {
 
   get latestSeason(): Season {
     return this.$store.getters.getLatestSeason;
+  }
+
+  get latestRace(): RaceDto | null {
+    const races = Object.values(this.latestSeason.races);
+    if (races.length === 0) {
+      return null;
+    }
+    return races.sort((a: RaceDto, b: RaceDto) => (b.order - a.order))[0];
   }
 
   get racers() {
