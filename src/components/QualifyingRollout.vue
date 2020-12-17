@@ -34,6 +34,12 @@ export default class QualifyingRollout extends Vue {
     this.shuffle();
   }
 
+  private cmp(a: number, b: number) {
+    if (a > b) return +1;
+    if (a < b) return -1;
+    return 0;
+  }
+
   shuffle() {
     const qualiRacers = [...this.racers];
     this.shuffleArray(qualiRacers);
@@ -46,7 +52,9 @@ export default class QualifyingRollout extends Vue {
           factorLuck: 0,
         } as Qualifier
       ));
-    qualiResult.sort((a, b) => a.dicedPosition - b.dicedPosition);
+    qualiResult.sort(
+      (a, b) => this.cmp(a.dicedPosition, b.dicedPosition) || this.cmp(a.factorLuck, b.factorLuck),
+    );
     this.result = qualiResult;
   }
 
