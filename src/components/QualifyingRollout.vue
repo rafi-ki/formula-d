@@ -53,7 +53,7 @@ export default class QualifyingRollout extends Vue {
         } as Qualifier
       ));
     qualiResult.sort(
-      (a, b) => this.cmp(a.dicedPosition, b.dicedPosition) || this.cmp(b.factorLuck, a.factorLuck),
+      (a, b) => this.cmp(a.dicedPosition, b.dicedPosition),
     );
     this.result = qualiResult;
   }
@@ -78,7 +78,7 @@ export default class QualifyingRollout extends Vue {
   startQualifying() {
     this.shuffle();
     this.addFactorLuck();
-    this.result.sort((a, b) => a.sum - b.sum);
+    this.result.sort((a, b) => this.cmp(a.sum, b.sum) || this.cmp(b.factorLuck, a.factorLuck));
     const racersCount = this.racers.length;
     this.result.forEach((x, index) => {
       const delay = (racersCount - index);
