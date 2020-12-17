@@ -73,8 +73,9 @@ export default class QualifyingRollout extends Vue {
     this.result.sort((a, b) => a.sum - b.sum);
     const racersCount = this.racers.length;
     this.result.forEach((x, index) => {
+      const delay = (racersCount - index);
       // eslint-disable-next-line no-return-assign,no-param-reassign
-      setTimeout(() => x.finished = true, 4000 * (racersCount + 1 - index));
+      setTimeout(() => x.finished = true, 4000 * delay);
     });
   }
 
