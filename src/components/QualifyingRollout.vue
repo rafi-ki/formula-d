@@ -53,7 +53,7 @@ export default class QualifyingRollout extends Vue {
         } as Qualifier
       ));
     qualiResult.sort(
-      (a, b) => this.cmp(a.dicedPosition, b.dicedPosition) || this.cmp(a.factorLuck, b.factorLuck),
+      (a, b) => this.cmp(a.dicedPosition, b.dicedPosition) || this.cmp(b.factorLuck, a.factorLuck),
     );
     this.result = qualiResult;
   }
