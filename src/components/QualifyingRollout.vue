@@ -1,18 +1,30 @@
 <template>
   <v-container>
     <div>
-      <div v-if="!latestRace.qualifying">
+      <div>Letztes Rennen: {{ latestRace.name }}</div>
+      <div v-if="latestRace.qualifying">
         Kein Qualifying offen
       </div>
-      <v-btn
-        v-if="latestRace.qualifying"
-        class="ma-2"
-        @click="startQualifying"
-        outlined
-        color="primary"
-      >
-        Start
-      </v-btn>
+      <div v-if="!latestRace.qualifying">
+        <v-btn
+          :disabled="oneQualifierFinished"
+          class="ma-2"
+          @click="startQualifying"
+          outlined
+          color="primary"
+        >
+          Start
+        </v-btn>
+        <v-btn
+          :disabled="!allQualifiersFinished"
+          class="ma-2"
+          @click="acceptQualifying"
+          outlined
+          color="primary"
+        >
+          Eintragen
+        </v-btn>
+      </div>
     </div>
     <qualifier-card
       v-for="(racer, index) in result"
@@ -29,6 +41,8 @@ import {
   FactorLuck, Qualifier, RaceDto, Season,
 } from '@/types/Season';
 import QualifierCard from '@/components/QualifierCard.vue';
+import * as firebase from 'firebase/app';
+import 'firebase/database';
 
 @Component({
   components: { QualifierCard },
@@ -84,6 +98,15 @@ export default class QualifyingRollout extends Vue {
     });
   }
 
+  acceptQualifying() {
+    const racers = this.result.map((x) => x.racer);
+    const raceRef = firebase.database()
+      .ref(`seasons/${this.latestSeason.id}/races/${this.latestRace.id}/qualifying`);
+    raceRef.set(racers).then(() => {
+      console.log('Entrie saved');
+    });
+  }
+
   get latestSeason(): Season {
     return this.$store.getters.getLatestSeason;
   }
@@ -97,9 +120,17 @@ export default class QualifyingRollout extends Vue {
   }
 
   get racers() {
-    const races = Object.values(this.latestSeason.races);
+    const races = Object.values(this.latestSeason.races).filter((x) => x.results);
     const racers = races.flatMap((x) => x.results.map((y) => y.racer));
     return [...new Set(racers)];
+  }
+
+  get allQualifiersFinished() {
+    return this.result.filter((x) => !x.finished).length === 0;
+  }
+
+  get oneQualifierFinished() {
+    return this.result.filter((x) => x.finished).length >= 1;
   }
 }
 </script>
