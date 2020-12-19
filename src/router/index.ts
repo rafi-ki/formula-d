@@ -40,6 +40,13 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   mode: 'history',
+  scrollBehavior: (to) => {
+    if (to.hash) {
+      const appBarHeight = 75;
+      return { selector: to.hash, offset: { x: 0, y: appBarHeight } };
+    }
+    return { x: 0, y: 0 };
+  },
   base: process.env.BASE_URL,
   routes,
 });

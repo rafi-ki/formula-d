@@ -72,7 +72,10 @@ export default class RaceDetails extends Vue {
   @Prop()
   race!: RaceDto;
 
-  expanded = false;
+  @Prop()
+  expandedInitially!: boolean;
+
+  expanded = this.expandedInitially;
 }
 </script>
 

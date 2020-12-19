@@ -56,7 +56,10 @@
               :icon="`mdi-numeric-${race.order}`"
             >
               <div class="font-weight-normal">
-                <strong>{{ race.name }}</strong>
+                <strong
+                  class="race-name"
+                  @click="moveToRace(race.id)"
+                >{{ race.name }}</strong>
                 <podest
                   :results="race.results"
                   :small="true"
@@ -96,6 +99,11 @@ export default class SeasonCard extends Vue {
     this.$router.push({ path });
   }
 
+  moveToRace(raceId: string) {
+    const path = `season/${this.season.id}#${raceId}`;
+    this.$router.push({ path });
+  }
+
   get commulated(): RacerResultDto[] {
     return this.$store.getters.getComulated(this.season.id);
   }
@@ -108,7 +116,7 @@ export default class SeasonCard extends Vue {
 </script>
 
 <style scoped>
-.active-badge {
-  line-height: 2rem;
+.race-name {
+  cursor: pointer;
 }
 </style>

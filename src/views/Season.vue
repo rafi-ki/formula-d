@@ -6,6 +6,8 @@
       v-for="race in races"
       :key="race.id"
       :race="race"
+      :id="race.id"
+      :expanded-initially="isExpanded(race.id)"
     />
     <race-form-dialog
       :season-id="$route.params.id"
@@ -31,6 +33,10 @@ import SeasonResult from '@/components/SeasonResult.vue';
   },
 })
 export default class Season extends Vue {
+  isExpanded(raceId: string) {
+    return this.$route.hash === `#${raceId}`;
+  }
+
   get season(): SeasonDto {
     const { id } = this.$route.params;
     return this.$store.getters.getSeason(id);
