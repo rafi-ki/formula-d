@@ -1,9 +1,19 @@
 <template>
   <v-container>
     <div>
-      <div>Letztes Rennen: {{ latestRace.name }}</div>
+      <div class="text-h6">
+        Qualifying für
+        <span class="text-decoration-underline">{{ latestRace.name }}</span>
+        <span v-if="latestRace.qualifying">&nbsp; beendet
+          <v-icon
+            color="green"
+            large
+          >mdi-check
+          </v-icon>
+        </span>
+      </div>
       <div v-if="latestRace.qualifying">
-        Kein Qualifying offen
+        Für eine neues Qualifying muss zuerst ein neues Rennen angelegt werden.
       </div>
       <div v-if="!latestRace.qualifying">
         <v-btn
@@ -13,7 +23,7 @@
           outlined
           color="primary"
         >
-          Start
+          Starten
         </v-btn>
         <v-btn
           :disabled="!allQualifiersFinished"
@@ -22,9 +32,18 @@
           outlined
           color="primary"
         >
-          Eintragen
+          Nehm ich
         </v-btn>
       </div>
+    </div>
+    <div v-if="result.length > 0 && !allQualifiersFinished">
+      <v-card
+        class="mx-auto mt-2"
+        max-width="500"
+        loading
+      >
+        <v-card-title>Qualifying läuft ... </v-card-title>
+      </v-card>
     </div>
     <qualifier-card
       v-for="(racer, index) in result"
@@ -32,6 +51,20 @@
       :qualifier="racer"
       :position="index+1"
     />
+    <div class="text-center ma-2">
+      <v-snackbar
+        v-model="snackbar"
+        timeout="5000"
+        color="success"
+      >
+        <v-icon
+          color="white"
+        >
+          mdi-check
+        </v-icon>
+        Qualifying übernommen
+      </v-snackbar>
+    </div>
   </v-container>
 </template>
 
@@ -50,9 +83,7 @@ import 'firebase/database';
 export default class QualifyingRollout extends Vue {
   result: Qualifier[] = [];
 
-  mounted() {
-    this.shuffle();
-  }
+  snackbar = false;
 
   private cmp(a: number, b: number) {
     if (a > b) return +1;
@@ -103,7 +134,7 @@ export default class QualifyingRollout extends Vue {
     const raceRef = firebase.database()
       .ref(`seasons/${this.latestSeason.id}/races/${this.latestRace.id}/qualifying`);
     raceRef.set(racers).then(() => {
-      console.log('Entrie saved');
+      this.snackbar = true;
     });
   }
 
@@ -126,6 +157,9 @@ export default class QualifyingRollout extends Vue {
   }
 
   get allQualifiersFinished() {
+    if (this.result.length === 0) {
+      return false;
+    }
     return this.result.filter((x) => !x.finished).length === 0;
   }
 

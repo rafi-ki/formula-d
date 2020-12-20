@@ -3,7 +3,6 @@
     <div class="text-h5">
       {{ latestSeason.name }} <br>
     </div>
-    <v-subheader>Aktuelle Saison</v-subheader>
     <v-tabs
       v-model="tab"
     >

@@ -1,11 +1,7 @@
 <template>
   <div>
     <div class="subtitle-1">
-      <span>Qualifying</span>
-      <qualifying-dialog
-        :season-id="$route.params.id"
-        :race="race"
-      />
+      Qualifying
     </div>
     <v-chip
       v-for="(racer, index) in qualifying"
