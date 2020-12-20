@@ -41,7 +41,6 @@ import { SeasonDto } from '@/types/Season';
 import { Stats } from '@/types/Stats';
 import Qualifying from './Qualifying.vue';
 import Race from './Race.vue';
-import QualifyingDialog from './dialogs/QualifyingDialog.vue';
 import ResultDialog from './dialogs/ResultDialog.vue';
 import Podest from './Podest.vue';
 
@@ -49,7 +48,6 @@ import Podest from './Podest.vue';
   components: {
     Qualifying,
     Race,
-    QualifyingDialog,
     ResultDialog,
     Podest,
   },

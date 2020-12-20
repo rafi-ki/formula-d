@@ -53,7 +53,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RaceDto } from '@/types/Season';
 import Qualifying from '@/components/Qualifying.vue';
 import Race from '@/components/Race.vue';
-import QualifyingDialog from '@/components/dialogs/QualifyingDialog.vue';
 import ResultDialog from '@/components/dialogs/ResultDialog.vue';
 import Podest from '@/components/Podest.vue';
 import RaceDialog from '@/components/dialogs/RaceDialog.vue';
@@ -63,7 +62,6 @@ import RaceDialog from '@/components/dialogs/RaceDialog.vue';
     RaceDialog,
     Qualifying,
     Race,
-    QualifyingDialog,
     ResultDialog,
     Podest,
   },

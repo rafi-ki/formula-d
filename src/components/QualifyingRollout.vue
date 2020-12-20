@@ -130,6 +130,9 @@ export default class QualifyingRollout extends Vue {
   }
 
   acceptQualifying() {
+    if (!this.latestRace) {
+      return;
+    }
     const racers = this.result.map((x) => x.racer);
     const raceRef = firebase.database()
       .ref(`seasons/${this.latestSeason.id}/races/${this.latestRace.id}/qualifying`);

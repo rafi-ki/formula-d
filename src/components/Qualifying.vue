@@ -2,6 +2,13 @@
   <div>
     <div class="subtitle-1">
       Qualifying
+      <v-btn
+        v-if="!qualifying"
+        icon
+        @click="jumpToRollout"
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
     </div>
     <v-chip
       v-for="(racer, index) in qualifying"
@@ -10,9 +17,7 @@
       :color="index===0 ? 'success' : ''"
       outlined
     >
-      <v-avatar
-        left
-      >
+      <v-avatar left>
         {{ index + 1 }}.
       </v-avatar>
       {{ racer }}
@@ -22,14 +27,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import QualifyingDialog from '@/components/dialogs/QualifyingDialog.vue';
 import { RaceDto } from '@/types/Season';
 
-@Component({
-  components: {
-    QualifyingDialog,
-  },
-})
+@Component
 export default class Qualifying extends Vue {
   @Prop()
   qualifying!: string[];
@@ -39,6 +39,10 @@ export default class Qualifying extends Vue {
 
   isPodest(index: number): boolean {
     return index === 0 || index === 1 || index === 2;
+  }
+
+  jumpToRollout(): void {
+    this.$router.push('/luckycharm');
   }
 }
 </script>
