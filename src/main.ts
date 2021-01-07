@@ -5,6 +5,8 @@ import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
 import 'firebase/database';
+import 'firebase/auth';
+import 'firebaseui/dist/firebaseui.css';
 
 Vue.config.productionTip = false;
 
@@ -26,6 +28,14 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    router.push('/').catch((x) => x);
+  } else {
+    router.push('/auth');
+  }
+});
 
 new Vue({
   router,
