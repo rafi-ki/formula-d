@@ -1,17 +1,40 @@
-name: Formula-D
-
-# Run this workflow every time a new commit pushed to your repository
+name: Build and Deploy
 on:
   push:
     branches:
       - master
 
 jobs:
-    deploy-prod:
-        runs-on: ubuntu-latest
-        container: rambabusaravanan/firebase
-        steps:
-            - run: npm install
-            - run: npm run build
-            - run: firebase use formula-d-f86d2 --token $FIREBASE_TOKEN
-            - run: firebase deploy --only hosting -m "Run $GITHUB_RUN_ID" --token $FIREBASE_TOKEN
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: dist
+          path: dist
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: dist
+          path: dist
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:formula-d-f86d2
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
