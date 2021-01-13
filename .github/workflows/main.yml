@@ -1,0 +1,15 @@
+name: Formula-D
+
+# Run this workflow every time a new commit pushed to your repository
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+    deploy-prod:
+        steps:
+            - run: npm install
+            - run: npm run build
+            - run: firebase use formula-d-f86d2 --token $FIREBASE_TOKEN
+            - run: firebase deploy --only hosting -m "Run $GITHUB_RUN_ID" --token $FIREBASE_TOKEN
