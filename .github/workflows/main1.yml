@@ -5,24 +5,6 @@ on:
       - main
 
 jobs:
-  # build:
-  #   name: Build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout Repo
-  #       uses: actions/checkout@master
-  #     - name: Install Dependencies
-  #       run: npm install
-  #     # todo remove env-variable once I now how to fix it
-  #     - name: Build
-  #       run: |
-  #         export NODE_OPTIONS=--openssl-legacy-provider
-  #         npm run build
-  #     - name: Archive Production Artifact
-  #       uses: actions/upload-artifact@main
-  #       with:
-  #         name: dist
-  #         path: dist
   deploy_live_website:
     runs-on: ubuntu-latest
     steps:
