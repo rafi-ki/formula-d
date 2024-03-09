@@ -33,7 +33,7 @@
           <v-col>
             <v-text-field
               label="Anzahl der Rennen"
-              v-model="numberOfRaces"
+              v-model.number="numberOfRaces"
               placeholder="5"
             />
           </v-col>
