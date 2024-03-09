@@ -13,8 +13,11 @@ jobs:
         uses: actions/checkout@master
       - name: Install Dependencies
         run: npm install
+      # todo remove env-variable once I now how to fix it
       - name: Build
-        run: npm run build
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
+          npm run build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@main
         with:
