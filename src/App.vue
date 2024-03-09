@@ -68,7 +68,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase';
 import 'firebase/database';
 import 'firebase/auth';
 import { SeasonDto } from '@/types/Season';

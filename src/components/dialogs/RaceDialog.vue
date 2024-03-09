@@ -72,7 +72,7 @@
 import {
   Component, Prop, Vue,
 } from 'vue-property-decorator';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase';
 import 'firebase/database';
 import { RaceDto } from '@/types/Season';
 

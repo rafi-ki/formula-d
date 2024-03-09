@@ -74,7 +74,7 @@ import {
   FactorLuck, Qualifier, RaceDto, Season,
 } from '@/types/Season';
 import QualifierCard from '@/components/QualifierCard.vue';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase';
 import 'firebase/database';
 
 @Component({
