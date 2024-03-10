@@ -58,6 +58,12 @@ export default new Vuex.Store<ModuleState>({
         if (b.start && a.start) {
           return b.start.getTime() - a.start.getTime();
         }
+        if (!b.start) {
+          return Number.MAX_SAFE_INTEGER;
+        }
+        if (!a.start) {
+          return Number.MIN_SAFE_INTEGER;
+        }
         return 0;
       });
     },
