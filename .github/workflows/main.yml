@@ -1,40 +1,23 @@
-name: Build and Deploy
+name: Build and Deploy Firebase
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
-  build:
-    name: Build
+  deploy_live_website:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
+      - uses: actions/checkout@v4
       - name: Install Dependencies
         run: npm install
+      # todo remove env-variable once I now how to fix it
       - name: Build
-        run: npm run build
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
+          npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          name: dist
-          path: dist
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: dist
-          path: dist
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting:formula-d-f86d2
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FORMULA_D_F86D2 }}'
+          projectId: formula-d-f86d2
+          channelId: live
