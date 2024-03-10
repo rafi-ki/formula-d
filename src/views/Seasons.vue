@@ -6,6 +6,8 @@
         :key="season.name"
         :season="season"
       />
+      <v-subheader></v-subheader>
+      <v-subheader></v-subheader>
     </v-container>
     <season-dialog />
   </div>

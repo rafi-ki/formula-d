@@ -9,6 +9,8 @@
       :id="race.id"
       :expanded-initially="isExpanded(race.id)"
     />
+    <v-subheader></v-subheader>
+    <v-subheader></v-subheader>
     <race-form-dialog
       :season-id="$route.params.id"
       :order="lastOrder + 1"
