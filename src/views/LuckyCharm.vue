@@ -63,7 +63,7 @@ export default class LuckyCharm extends Vue {
   tab = null;
 
   get latestSeason(): Season {
-    return this.$store.getters.getLatestSeason;
+    return this.$store.getters.getLatestSeasonWithRaces;
   }
 
   get factorLuck(): FactorLuck[] {

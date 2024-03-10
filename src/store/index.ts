@@ -71,8 +71,10 @@ export default new Vuex.Store<ModuleState>({
   getters: {
     getSeason: (state) => (id: string): Season => state.seasons.find((x) => x.id === id) as Season,
 
-    getLatestSeason: (state): Season => {
-      const sortedSeasons = [...state.seasons].sort(compareStart);
+    getLatestSeasonWithRaces: (state): Season => {
+      const seasonsWithRaces = state.seasons.filter((value) => value.races!!);
+      const sortedSeasons = [...seasonsWithRaces].sort(compareStart);
+      console.log(sortedSeasons);
       return sortedSeasons[sortedSeasons.length - 1] as Season;
     },
 

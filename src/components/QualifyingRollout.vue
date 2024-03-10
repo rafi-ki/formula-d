@@ -97,7 +97,11 @@ export default class QualifyingRollout extends Vue {
     const factorLuck = this.$store.getters.getFactorLuck(this.latestSeason.id) as FactorLuck[];
     this.result = qualiRacers
       .map((racer, i) => {
-        const { factor } = factorLuck.find((luck) => luck.racer === racer) as FactorLuck;
+        let factor = 0;
+        if (factorLuck.length > 0) {
+          const fl = factorLuck.find((luck) => luck.racer === racer) as FactorLuck;
+          factor = fl.factor;
+        }
         const dicedPosition = (i + 1);
         return {
           racer,
@@ -142,7 +146,7 @@ export default class QualifyingRollout extends Vue {
   }
 
   get latestSeason(): Season {
-    return this.$store.getters.getLatestSeason;
+    return this.$store.getters.getLatestSeasonWithRaces;
   }
 
   get latestRace(): RaceDto | null {
@@ -154,9 +158,7 @@ export default class QualifyingRollout extends Vue {
   }
 
   get racers() {
-    const races = Object.values(this.latestSeason.races).filter((x) => x.results);
-    const racers = races.flatMap((x) => x.results.map((y) => y.racer));
-    return [...new Set(racers)];
+    return ['Georg', 'Podo', 'Igor', 'Thomas', 'Rafi', 'Markus'];
   }
 
   get allQualifiersFinished() {
