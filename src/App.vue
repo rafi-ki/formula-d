@@ -51,6 +51,11 @@
           <v-subheader>{{ email }}</v-subheader>
           <v-list-item-group>
             <v-list-item>
+              <v-list-item-title @click="toRules()">
+                Regelwerk
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item>
               <v-list-item-title @click="logout()">
                 Logout
               </v-list-item-title>
@@ -113,6 +118,10 @@ export default class App extends Vue {
 
   toLuckyCharm() {
     this.$router.push('/luckycharm').catch((x) => x);
+  }
+
+  toRules() {
+    this.$router.push('/rules').catch((x) => x);
   }
 }
 </script>
