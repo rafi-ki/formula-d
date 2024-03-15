@@ -74,15 +74,13 @@ export default new Vuex.Store<ModuleState>({
     getLatestSeasonWithRaces: (state): Season => {
       const seasonsWithRaces = state.seasons.filter((value) => value.races!!);
       const sortedSeasons = [...seasonsWithRaces].sort(compareStart);
-      console.log(sortedSeasons);
       return sortedSeasons[sortedSeasons.length - 1] as Season;
     },
 
     getFactorLuck: (state, getters) => (seasonId: string) => {
       const season = getters.getSeason(seasonId) as Season;
-      const races = Object.values(season.races)
-        .filter((x) => x.order !== 1)
-        .filter((x) => x.qualifying);
+
+      const races = Object.values(season.races).filter((x) => x.qualifying);
       const factorsLuck = races.flatMap(mapFactorLuck);
       const groupedByName = factorsLuck.reduce((r: any, a: FactorLuck) => {
         // eslint-disable-next-line
