@@ -5,7 +5,7 @@ import Season from '@/views/Season.vue';
 import Racers from '@/views/Racers.vue';
 import LuckyCharm from '@/views/LuckyCharm.vue';
 import Auth from '@/views/Auth.vue';
-import Rules from "@/views/Rules.vue";
+import Rules from '@/views/Rules.vue';
 
 Vue.use(VueRouter);
 
