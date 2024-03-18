@@ -14,21 +14,18 @@
       <v-btn
         text
         @click="toHome"
-        v-if="isAuthenticated"
       >
         <v-icon>mdi-home</v-icon>
       </v-btn>
       <v-btn
         text
         @click="toRacers"
-        v-if="isAuthenticated"
       >
         <v-icon>mdi-racing-helmet</v-icon>
       </v-btn>
       <v-btn
         text
         @click="toLuckyCharm"
-        v-if="isAuthenticated"
       >
         <v-icon>mdi-clover</v-icon>
       </v-btn>
@@ -42,7 +39,6 @@
           <v-btn
             icon
             v-on="on"
-            :disabled="!isAuthenticated"
           >
             <v-icon>mdi-account</v-icon>
           </v-btn>
@@ -55,9 +51,14 @@
                 Regelwerk
               </v-list-item-title>
             </v-list-item>
-            <v-list-item>
-              <v-list-item-title @click="logout()">
+            <v-list-item v-if="isAuthenticated" @click="logout()">
+              <v-list-item-title>
                 Logout
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item v-if="!isAuthenticated" @click="login()">
+              <v-list-item-title>
+                Login
               </v-list-item-title>
             </v-list-item>
           </v-list-item-group>
@@ -106,10 +107,12 @@ export default class App extends Vue {
     firebase.auth().signOut();
   }
 
+  login() {
+    this.$router.push('/auth').catch((x) => x);
+  }
+
   toHome() {
-    if (this.isAuthenticated) {
-      this.$router.push('/').catch((x) => x);
-    }
+    this.$router.push('/').catch((x) => x);
   }
 
   toRacers() {

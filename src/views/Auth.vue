@@ -26,7 +26,7 @@ export default class Auth extends Vue {
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
       ],
     };
-    const ui = new firebaseui.auth.AuthUI(firebase.auth());
+    const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth());
     ui.start('#firebaseui-auth-container', uiConfig);
   }
 }
