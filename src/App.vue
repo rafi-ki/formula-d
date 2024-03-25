@@ -51,12 +51,18 @@
                 Regelwerk
               </v-list-item-title>
             </v-list-item>
-            <v-list-item v-if="isAuthenticated" @click="logout()">
+            <v-list-item
+              v-if="isAuthenticated"
+              @click="logout()"
+            >
               <v-list-item-title>
                 Logout
               </v-list-item-title>
             </v-list-item>
-            <v-list-item v-if="!isAuthenticated" @click="login()">
+            <v-list-item
+              v-if="!isAuthenticated"
+              @click="login()"
+            >
               <v-list-item-title>
                 Login
               </v-list-item-title>
@@ -71,6 +77,10 @@
   </v-app>
 </template>
 
+<style lang="scss"> // the main file that imports everything related with styles
+//@import "@/assets/styles/main.scss";
+</style>
+
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
@@ -78,6 +88,7 @@ import firebase from 'firebase';
 import 'firebase/database';
 import 'firebase/auth';
 import { SeasonDto } from '@/types/Season';
+
 
 @Component
 export default class App extends Vue {

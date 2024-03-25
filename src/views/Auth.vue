@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div>
     <div class="text-h1 text-center mt-5">
       Login
