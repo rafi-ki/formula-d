@@ -77,10 +77,6 @@
   </v-app>
 </template>
 
-<style lang="scss"> // the main file that imports everything related with styles
-//@import "@/assets/styles/main.scss";
-</style>
-
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';

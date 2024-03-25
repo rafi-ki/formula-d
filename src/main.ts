@@ -3,19 +3,10 @@ import firebase from 'firebase';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import vuetify from './plugins/vuetify';
 import 'firebase/database';
 import 'firebase/auth';
 import 'firebaseui/dist/firebaseui.css';
-
-Vue.config.productionTip = false;
-
-Vue.filter('position', (value: number) => {
-  if (value === 0) {
-    return 'DNF';
-  }
-  return `${value}`;
-});
+import vuetify from "./plugins/vuetify";
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBSfeVkcrfyOoysm2giGrH87NYTj7HYSrI',
@@ -30,8 +21,17 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 new Vue({
-  router,
-  store,
-  vuetify,
+    vuetify,
+    router,
+    store,
   render: (h) => h(App),
 }).$mount('#app');
+
+Vue.config.productionTip = false;
+
+Vue.filter('position', (value: number) => {
+  if (value === 0) {
+    return 'DNF';
+  }
+  return `${value}`;
+});
