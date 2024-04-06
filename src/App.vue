@@ -21,7 +21,7 @@
         text
         @click="toRacers"
       >
-        <v-icon>mdi-racing-helmet</v-icon>
+        <v-icon>mdi-chart-box-outline</v-icon>
       </v-btn>
       <v-btn
         text
