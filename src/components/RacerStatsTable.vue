@@ -57,11 +57,7 @@ export default class RacerStatsTable extends Vue {
   season!: SeasonDto;
 
   headers = [
-    {
-      text: 'Rennfahrer',
-      align: 'start',
-      value: 'racer',
-    },
+    { text: 'Rennfahrer', align: 'start', value: 'racer' },
     { text: 'Punkte', value: 'points', align: 'center' },
     { text: 'Siege', value: 'wins', align: 'center' },
     { text: 'Podestplätze', value: 'podests', align: 'center' },
@@ -70,11 +66,7 @@ export default class RacerStatsTable extends Vue {
   ];
 
   overallHeaders = [
-    {
-      text: 'Rennfahrer',
-      align: 'start',
-      value: 'racer',
-    },
+    { text: 'Rennfahrer', align: 'start', value: 'racer' },
     { text: 'Titel', value: 'titels', align: 'center' },
     { text: 'Punkte', value: 'points', align: 'center' },
     { text: 'Siege', value: 'wins', align: 'center' },

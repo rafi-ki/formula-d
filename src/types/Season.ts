@@ -6,6 +6,7 @@ export interface SeasonDto {
     plannedRaces: number;
     races: RacesDto;
     champion: string;
+    duration(): string;
 }
 
 export class Season implements SeasonDto {
