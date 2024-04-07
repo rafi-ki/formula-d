@@ -3,6 +3,7 @@ export interface RacerStat {
     points: number;
     wins: number;
     podests: number;
+    poles: number;
     dnf: number;
     titels: number;
 }

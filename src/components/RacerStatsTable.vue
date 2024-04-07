@@ -65,6 +65,7 @@ export default class RacerStatsTable extends Vue {
     { text: 'Punkte', value: 'points', align: 'center' },
     { text: 'Siege', value: 'wins', align: 'center' },
     { text: 'Podestplätze', value: 'podests', align: 'center' },
+    { text: 'Poles', value: 'poles', align: 'center' },
     { text: 'DNF', value: 'dnf', align: 'center' },
   ];
 
@@ -78,6 +79,7 @@ export default class RacerStatsTable extends Vue {
     { text: 'Punkte', value: 'points', align: 'center' },
     { text: 'Siege', value: 'wins', align: 'center' },
     { text: 'Podestplätze', value: 'podests', align: 'center' },
+    { text: 'Poles', value: 'poles', align: 'center' },
     { text: 'DNF', value: 'dnf', align: 'center' },
   ];
 

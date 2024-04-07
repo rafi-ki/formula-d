@@ -132,17 +132,15 @@ export default new Vuex.Store<ModuleState>({
         r[a.racer] = [...r[a.racer] || [], a];
         return r;
       }, {});
+      const qualifyings = races.map(x => x.qualifying).filter(x => x);
       return {
         seasons: state.seasons.length,
         races: races.length,
         racers: Object.keys(groupedByName),
         racerStats: Object.keys(groupedByName).map((x) => {
-          const wins = groupedByName[x]
-            .filter((item: RacerResultDto) => item.position === 1).length;
-          const podests = groupedByName[x]
-            .filter((item: RacerResultDto) => isPodest(item)).length;
-          const dnf = groupedByName[x]
-            .filter((item: RacerResultDto) => item.position === 0).length;
+          const wins = groupedByName[x].filter((item: RacerResultDto) => item.position === 1).length;
+          const podests = groupedByName[x].filter((item: RacerResultDto) => isPodest(item)).length;
+          const dnf = groupedByName[x].filter((item: RacerResultDto) => item.position === 0).length;
           const points = groupedByName[x].map((y: RacerResultDto) => y.points)
             .reduce((a: number, b: number) => a + b, 0);
           return {
@@ -150,6 +148,7 @@ export default new Vuex.Store<ModuleState>({
             points,
             wins,
             podests,
+            poles: qualifyings.filter(q => q![0] == x).length,
             dnf,
             titels: champions.filter((y) => x === y).length,
           };
@@ -167,6 +166,7 @@ export default new Vuex.Store<ModuleState>({
         r[a.racer] = [...r[a.racer] || [], a];
         return r;
       }, {});
+      const qualifyings = races.map(x => x.qualifying).filter(x => x);
       return {
         seasons: 1,
         races: races.length,
@@ -185,6 +185,7 @@ export default new Vuex.Store<ModuleState>({
             points,
             wins,
             podests,
+            poles: qualifyings.filter(q => q![0] == x).length,
             dnf,
           };
         }).sort((a, b) => b.wins - a.wins),

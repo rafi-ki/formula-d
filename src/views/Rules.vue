@@ -11,8 +11,8 @@
         <li>kann mit Windschatten kombiniert werden</li>
         <li>zu beachten bei KERS nach Windschatten:
           <ul>
-            <li>gilt für Bewegung wie ein neuer Zug mit 3 Feldern (man kann nach links und rechts fahren)</li>
-            <li>jedoch zählt KERS als Beihilfe vom Windschatten, also kostet die Kurve immer noch eine Bremse und zählt in der Kurve nicht als zusätzlicher Stop</li>
+            <li>Spurwechsel: normale Regeln wie bei neuem Zug mit 3 Feldern (nach links oder nach rechts oder überholen; egal was vor dem KERS war)</li>
+            <li>bzgl. Kurve: wenn man dadurch in die Kurve fährt, zählt es als "slipstreaming into a corner" und man muss 1 Bremse zahlen</li>
           </ul>
         </li>
       </ul>
